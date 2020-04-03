@@ -1,22 +1,11 @@
+use std::io;
+
 fn main() {
-  let x = "好人";
-  // let y: i8 = 1;
-  // let b: bool = false;
-  println!("x = {}", x);
-  let mut i: i8 = 1; // mut可变变量
-  loop {
-    println!("{}", i);
-    i += 1;
-    if i > 3 {
-      break;
-    }
-  }
-  for i in 1..3 {
-    println!("{}", i);
-  }
-  for i in 1..=3 {
-    println!("{}", i);
-  }
+  let mut input = String::new();
+  io::stdin().read_line(&mut input)
+    .ok()
+    .expect("Error in read");
+  println!("input is {}", input);
 }
 
 // u8指的是uint8
