@@ -1,5 +1,6 @@
 fn test() {
   let keys = vec!["a", "b", "c"];
+  // let keys : Vec<&stc> = Vew::new(); // push,remove
   for key in keys.iter() {
     println!("{}", key);
   }
