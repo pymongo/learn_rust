@@ -1,11 +1,11 @@
-// mod tests;
-
 fn main() {
-  println!("Hello, world!");
-  // tests::add
+  let x = "好人";
+  println!("x = {}", x);
 }
 
 // u8指的是uint8
+// TODO 其实忽视这个警告的最佳实践是将这个函数设为「仅在测试环境下编译」，毕竟只在测试环境下使用
+#[allow(dead_code)] // 忽略未使用的代码的警告
 fn need_to_test3() -> u8 {
   3
 }
