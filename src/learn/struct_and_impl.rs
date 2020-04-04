@@ -34,7 +34,7 @@ impl OnMessage for Color {
   }
 }
 
-fn test() {
+pub fn run() {
   // let user1 = User {name: 1, password: 12};
   // Error: user1.name = 1;
   let mut user2 = User {name: 1, password: 23};

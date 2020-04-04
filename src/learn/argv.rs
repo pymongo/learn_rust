@@ -1,4 +1,4 @@
-fn test() {
+pub fn run() {
   // 获取命令行参数
   let args: Vec<String> = std::env::args().collect();
 

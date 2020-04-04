@@ -1,4 +1,4 @@
-fn test() {
+pub fn run() {
   // Read-Only reference 好像也叫borrowing
   let mut x = 0;
   // 此时x变量被干掉了，不能引用x了

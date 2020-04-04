@@ -5,7 +5,7 @@ enum Gender {
 
 const MY_SCHOOL: &str = "Switch";
 
-fn test() {
+pub fn run() {
   let my_gender: Gender = Gender::Male;
   match my_gender {
     Gender::Male => println!("male"),

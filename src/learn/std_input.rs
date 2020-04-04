@@ -1,6 +1,6 @@
 use std::io;
 
-fn test() {
+pub fn run() {
   // std::collections::HashMap, insert/get
 
   let mut input = String::new();
