@@ -4,7 +4,15 @@ enum Gender {
   Female
 }
 
-// const MY_SCHOOL: &str = "Switch";
+#[allow(dead_code)]
+impl Gender {
+  fn is_male(&self) -> bool {
+    match self {
+      &Gender::Male => true,
+      &Gender::Female => false,
+    }
+  }
+}
 
 #[allow(dead_code)]
 pub fn run() {
