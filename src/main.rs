@@ -2,7 +2,8 @@ mod learn;
 mod case_study;
 
 fn main() {
-  learn::execute_command::run();
+  // learn::http_request::run().unwrap();
+  learn::http_request::deserialize_json_str();
 }
 
 
