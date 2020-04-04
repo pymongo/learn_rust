@@ -1,9 +1,54 @@
 
 
-fn main() {
-
+struct Philosopher {
+  name: String,
 }
 
+impl Philosopher {
+  fn new(name: &str) -> Philosopher {
+    Philosopher {
+      name: name.to_string(),
+    }
+  }
+
+  fn eat(&self) {
+    println!("{} is eating.", self.name);
+
+    std::thread::sleep(std::time::Duration::from_millis(1000));
+
+    println!("{} is done eating.", self.name);
+  }
+}
+
+fn main() {
+  let string_to_char = String::from("abc");
+  match string_to_char.chars().nth(4) {
+    Some(c) => println("{}", c),
+    None => println!("Index out of range")
+  }
+
+  let philosophers = vec![
+    Philosopher::new("Baruch Spinoza"),
+    Philosopher::new("Gilles Deleuze"),
+    Philosopher::new("Karl Marx"),
+    Philosopher::new("Friedrich Nietzsche"),
+    Philosopher::new("Michel Foucault"),
+  ];
+
+  let handles: Vec<_> = philosophers.into_iter().map(|p| {
+    // thread::spawn 定义一段在新线程运行的代码块
+    std::thread::spawn(move || {
+      // [annotation move]: the closure is going to
+      // take ownership of the values it’s capturing
+      p.eat();
+    })
+  }).collect();
+
+  for h in handles {
+    // 多线程
+    h.join().unwrap();
+  }
+}
 
 
 

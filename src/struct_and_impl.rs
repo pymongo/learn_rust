@@ -23,6 +23,17 @@ impl ToString for Color {
   }
 }
 
+trait OnMessage {
+  fn callback(&self);
+}
+
+impl OnMessage for Color {
+  fn callback(&self) {
+    // unimplemented!()
+    // doNoThing
+  }
+}
+
 fn test() {
   // let user1 = User {name: 1, password: 12};
   // Error: user1.name = 1;

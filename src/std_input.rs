@@ -1,6 +1,8 @@
 use std::io;
 
 fn test() {
+  // std::collections::HashMap, insert/get
+
   let mut input = String::new();
   // 如果没有use，要写成std::io::stdin()
   io::stdin().read_line(&mut input)

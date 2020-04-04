@@ -36,7 +36,16 @@ fn test() {
       Ordering::Equal   => {
         println!("You win!");
         break;
-      }
+      },
+      _ => println!("Default: It doesn't match")
     }
+
+    /*
+    match的另一种写法
+    match xxx {
+      Ok(_) => do_some_thing,
+      Err(e) => println!("{}". e)
+    }
+    */
   }
 }
