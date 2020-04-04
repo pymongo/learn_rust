@@ -1,23 +1,10 @@
 mod learn;
+mod case_study;
 
-struct Philosopher {
-  name: String,
-}
 
-impl Philosopher {
-  fn new(name: &str) -> Philosopher {
-    Philosopher {
-      name: name.to_string(),
-    }
-  }
 
-  fn eat(&self) {
-    println!("{} is eating.", self.name);
-
-    std::thread::sleep(std::time::Duration::from_millis(1000));
-
-    println!("{} is done eating.", self.name);
-  }
+struct Table {
+  forks: Vec<Mutex<()>>,
 }
 
 fn main() {
