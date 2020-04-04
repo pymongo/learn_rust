@@ -1,4 +1,4 @@
-
+mod learn;
 
 struct Philosopher {
   name: String,
@@ -21,11 +21,8 @@ impl Philosopher {
 }
 
 fn main() {
-  let string_to_char = String::from("abc");
-  match string_to_char.chars().nth(4) {
-    Some(c) => println("{}", c),
-    None => println!("Index out of range")
-  }
+  // module的演示
+  learn::read_file::read_file();
 
   let philosophers = vec![
     Philosopher::new("Baruch Spinoza"),
