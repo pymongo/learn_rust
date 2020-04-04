@@ -22,7 +22,7 @@ impl Philosopher {
 
     println!("{} is eating.", self.name);
 
-    std::thread::sleep(std::time::Duration::from_millis(1000));
+    thread::sleep(std::time::Duration::from_millis(1000));
 
     println!("{} is done eating.", self.name);
   }
@@ -33,6 +33,7 @@ struct Table {
   forks: Vec<Mutex<()>>,
 }
 
+#[allow(dead_code)]
 pub fn run() {
   let table = Arc::new(Table { forks: vec![
     Mutex::new(()),
@@ -51,11 +52,10 @@ pub fn run() {
   ];
 
   let handles: Vec<_> = philosophers.into_iter().map(|p| {
-    // thread::spawn 定义一段在新线程运行的代码块
-    std::thread::spawn(move || {
-      // [annotation move]: the closure is going to
-      // take ownership of the values it’s capturing
-      p.eat(&table.clone());
+    let table = table.clone();
+
+    thread::spawn(move || {
+      p.eat(&table);
     })
   }).collect();
 

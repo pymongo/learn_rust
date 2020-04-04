@@ -1,5 +1,6 @@
 use std::io;
 
+#[allow(dead_code)]
 pub fn run() {
   // std::collections::HashMap, insert/get
 
@@ -13,7 +14,7 @@ pub fn run() {
   // read_line的返回值是io::Result
   println!("input is {}", input);
   // 字符串转整形
-  let input_to_int: u32 = input.trim().parse()
+  let _input_to_int: u32 = input.trim().parse()
     .ok()
     .expect("Please type a number!");
 }

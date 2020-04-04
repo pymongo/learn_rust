@@ -1,6 +1,7 @@
 use std::fs::File;
 use std::io::prelude::*;
 
+#[allow(dead_code)]
 pub fn read_file() {
   let mut file = File::open("./src/enum_match.rs").expect("Open Failed");
 
@@ -10,13 +11,14 @@ pub fn read_file() {
   println!("{}", content);
 }
 
+#[allow(dead_code)]
 fn write_a_file() {
   /* Write to file */
   let mut write_file = File::create("output.txt").expect("Error");
   // b"" means byte slice
   write_file.write_all(b"Haha").expect("Error");
 }
-
+#[allow(dead_code)]
 fn string_to_char() {
   let string_to_char = String::from("abc");
   match string_to_char.chars().nth(4) {

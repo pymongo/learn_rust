@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 pub fn run() {
   let keys = vec!["a", "b", "c"];
   // let keys : Vec<&stc> = Vew::new(); // push,remove
@@ -7,11 +8,6 @@ pub fn run() {
   // 不用.iter()的话，遍历完keys之后，就获取不到keys了
   for (index, key) in keys.iter().enumerate() {
     println!("{}: {}", index, key);
-  }
-  let my_gender: Gender = Gender::Male;
-  match my_gender {
-    Gender::Male => println!("male"),
-    Gender::Female => println!("female")
   }
 
   let mut i: i8 = 1; // mut可变变量

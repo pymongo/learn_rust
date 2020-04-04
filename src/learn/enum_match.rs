@@ -1,10 +1,12 @@
 enum Gender {
   Male,
-  Female,
+  #[allow(dead_code)]
+  Female
 }
 
-const MY_SCHOOL: &str = "Switch";
+// const MY_SCHOOL: &str = "Switch";
 
+#[allow(dead_code)]
 pub fn run() {
   let my_gender: Gender = Gender::Male;
   match my_gender {

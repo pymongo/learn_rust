@@ -4,12 +4,11 @@ use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
 
+#[allow(dead_code)]
 pub fn run() {
-  println!("Guess the number!");
+  println!("Guess the number!(1-100)");
 
   let secret_number = rand::thread_rng().gen_range(1, 101);
-
-  println!("The secret number is: {}", secret_number);
 
   loop {
     println!("Please input your guess.");
@@ -36,8 +35,7 @@ pub fn run() {
       Ordering::Equal   => {
         println!("You win!");
         break;
-      },
-      _ => println!("Default: It doesn't match")
+      }
     }
 
     /*

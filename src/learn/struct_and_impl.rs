@@ -1,5 +1,6 @@
 struct User {
   name: u8,
+  #[allow(dead_code)]
   password: u8
 }
 
@@ -34,6 +35,7 @@ impl OnMessage for Color {
   }
 }
 
+#[allow(dead_code)]
 pub fn run() {
   // let user1 = User {name: 1, password: 12};
   // Error: user1.name = 1;
@@ -45,8 +47,8 @@ pub fn run() {
   let red = Color::new(255, 0, 0);
   red.print_rgb();
 
-  let numbers: [u8; 4] = [1,2,3,4];
-  let numbers: [u8; 4] = [0; 4];
+  let _numbers1: [u8; 4] = [1,2,3,4];
+  let _numbers2: [u8; 4] = [0; 4];
 
   // let my_str = String::from("haha");
   // 修改字符串：my_str.push_str("asdf");

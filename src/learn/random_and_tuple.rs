@@ -1,6 +1,7 @@
 extern crate rand;
 use rand::Rng;
 
+#[allow(dead_code)]
 pub fn run() {
   let tuple = (0, 1.1, (false, "1"));
   println!("{}", (tuple.2).1);

@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 pub fn run() {
   // Read-Only reference 好像也叫borrowing
   let mut x = 0;
