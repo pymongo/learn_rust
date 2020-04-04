@@ -11,7 +11,7 @@ const API_URL_2 : &str = "https://jsonplaceholder.typicode.com/posts/88";
 #[allow(dead_code)]
 #[derive(Debug, Serialize, Deserialize)]
 struct Post {
-  id: Option<i32>,
+  id: i32,
   title: String,
   body: String,
   #[serde(rename = "userId")]
@@ -30,27 +30,39 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
   Ok(())
 }
 
+const JSON_STR : &str = r#"
+  {
+    "userId": 1,
+    "id": 1,
+    "title": "reprehenderit",
+    "body": "quia et susc equunturrepre"
+  }
+"#;
+
 #[allow(dead_code)]
 pub fn deserialize_json_str() {
-  let json_str : &str = r#"
-    {
-      "userId": 1,
-      "id": 1,
-      "title": "reprehenderit",
-      "body": "quia et susc equunturrepre"
-    }
-  "#;
-  let res = serde_json::from_str(json_str);
+  let res = serde_json::from_str(JSON_STR);
   if res.is_ok() {
     let json_value : serde_json::Value = res.unwrap();
+    // 如果找不到json的key，会返回null
     println!("json_value[\"userId\"] = {}", json_value["userId"])
   }
 }
 
 #[allow(dead_code)]
+pub fn gson_deserialize() {
+  let res = serde_json::from_str(JSON_STR);
+  if res.is_ok() {
+    let json_value : Post = res.unwrap();
+    // 如果找不到json的key，会返回null
+    println!("json_value[\"userId\"] = {}", json_value.user_id)
+  }
+}
+
+#[allow(dead_code)]
 #[tokio::main]
-pub async fn json_request() -> Result<(), Box<dyn std::error::Error>> {
-  let resp = reqwest::get(API_URL_2)
+pub async fn gson() -> Result<(), Box<dyn std::error::Error>> {
+  let resp : Post = reqwest::get(API_URL_2)
     .await?
     .json()
     .await?;
