@@ -1,7 +1,9 @@
+#[cfg(feature = "unused")]
 use std::fs::File;
+#[cfg(feature = "unused")]
 use std::io::prelude::*;
 
-#[allow(dead_code)]
+#[cfg(feature = "unused")]
 pub fn read_file() {
   let mut file = File::open("./src/enum_match.rs").expect("Open Failed");
 
@@ -11,7 +13,7 @@ pub fn read_file() {
   println!("{}", content);
 }
 
-#[allow(dead_code)]
+#[cfg(feature = "unused")]
 fn write_a_file() {
   /* Write to file */
   let mut write_file = File::create("output.txt").expect("Error");

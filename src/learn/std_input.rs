@@ -1,12 +1,10 @@
-use std::io;
-
 #[allow(dead_code)]
 pub fn run() {
   // std::collections::HashMap, insert/get
 
   let mut input = String::new();
   // 如果没有use，要写成std::io::stdin()
-  io::stdin().read_line(&mut input)
+  std::io::stdin().read_line(&mut input)
     .ok()
     .expect("Error in read");
   // expect: 如果ok的返回值isn’t a successful one, panic!s with a message you passed it

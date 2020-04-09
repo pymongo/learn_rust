@@ -1,11 +1,6 @@
-struct User {
-  name: u8,
-  #[allow(dead_code)]
-  password: u8
-}
-
 struct Color(u8, u8, u8);
 
+#[allow(dead_code)]
 impl Color {
   // associated function
   fn print_rgb(&self) {
@@ -39,6 +34,10 @@ impl OnMessage for Color {
 pub fn run() {
   // let user1 = User {name: 1, password: 12};
   // Error: user1.name = 1;
+  struct User {
+    name: u8,
+    password: u8,
+  }
   let mut user2 = User {name: 1, password: 23};
   user2.name = 12;
   println!("{}", user2.name);

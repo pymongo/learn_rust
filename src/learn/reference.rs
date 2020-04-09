@@ -1,4 +1,4 @@
-#[allow(dead_code)]
+#[cfg(feature = "unused")]
 pub fn run() {
   // Read-Only reference 好像也叫borrowing
   let mut x = 0;
@@ -26,6 +26,7 @@ pub fn run() {
   println!("aa = {}, bb = {}", aa, bb);
 }
 
+#[cfg(feature = "unused")]
 fn increase(input_number: &mut u8) {
   *input_number += 1;
 }

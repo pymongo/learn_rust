@@ -64,7 +64,6 @@ pub fn run() {
     // 简单来说通过克隆，复制一份餐桌的5个叉子的应用，当线程结束时，把这5个新的叉子引用释放掉
     // You’ll notice we can introduce a new binding to table here, and it will shadow the old one.
     let table = table.clone();
-
     thread::spawn(move || {
       p.eat(&table);
     })

@@ -1,8 +1,7 @@
-extern crate rand;
-use rand::Rng;
-
-#[allow(dead_code)]
+#[cfg(feature = "unused")]
 pub fn run() {
+  extern crate rand;
+  use rand::Rng;
   let tuple = (0, 1.1, (false, "1"));
   println!("{}", (tuple.2).1);
   let (a, b) = tuple.2;

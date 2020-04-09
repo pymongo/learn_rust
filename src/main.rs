@@ -1,12 +1,10 @@
+// #![feature(test)]
+// extern crate test;
+
 mod learn;
 mod case_study;
+mod best_practice;
 
 fn main() {
-  learn::http_request::gson().unwrap();
-  // learn::http_request::gson_deserialize();
+
 }
-
-
-
-
-
