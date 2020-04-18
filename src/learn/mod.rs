@@ -2,6 +2,7 @@
 // 如果是在main.rs同级文件夹中，直接mod 文件名;即可
 pub mod argv;
 pub mod enum_match;
+pub mod env;
 pub mod execute_command;
 pub mod iter_vec;
 pub mod http_request;
