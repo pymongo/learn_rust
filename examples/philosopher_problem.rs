@@ -37,8 +37,11 @@ struct Table {
   forks: Vec<Mutex<()>>,
 }
 
-#[allow(dead_code)]
-pub fn run() {
+/// ### Rust Arc<Mutex<T>> pattern
+/// An extremely common pattern in Rust is Arc<Mutex<T>>,
+/// where Arc provides the memory management,
+/// and Mutex provides safe multi-threaded access to the resource
+fn main() {
   // [reference count]引用计数是计算机编程语言中的一种内存管理技术，是指将资源（可以是对象、内存或磁盘空间等等）的被引用次数保存起来，
   // 当被引用次数变为零时就将其释放的过程。使用引用计数技术可以实现自动资源管理的目的。同时引用计数还可以指使用引用计数技术回收未使用资源的垃圾回收算法。
   // ARC = atomic reference count， 用于多线程间共享变量
