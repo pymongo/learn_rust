@@ -1,7 +1,6 @@
 use std::process::Command;
 
-#[allow(dead_code)]
-pub fn run() {
+fn main() {
   let mut cmd = Command::new("df");
   cmd.arg("-h");
   match cmd.output() {

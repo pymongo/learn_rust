@@ -1,4 +1,4 @@
-pub fn run() {
+fn main() {
   // 下面三个应该是在Cargo.toml里面定义的
   // println!("HOST = {}", env!("HOST"));
   // println!("TARGET = {}", env!("TARGET"));

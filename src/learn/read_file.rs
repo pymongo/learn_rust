@@ -20,11 +20,3 @@ fn write_a_file() {
   // b"" means byte slice
   write_file.write_all(b"Haha").expect("Error");
 }
-#[allow(dead_code)]
-fn string_to_char() {
-  let string_to_char = String::from("abc");
-  match string_to_char.chars().nth(4) {
-    Some(c) => println!("{}", c),
-    None => println!("Index out of range")
-  }
-}

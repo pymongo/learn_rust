@@ -1,10 +1,8 @@
-
 use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
 
-#[allow(dead_code)]
-pub fn run() {
+fn main() {
   println!("Guess the number!(1-100)");
 
   let secret_number = rand::thread_rng().gen_range(1, 101);
@@ -36,13 +34,5 @@ pub fn run() {
         break;
       }
     }
-
-    /*
-    match的另一种写法
-    match xxx {
-      Ok(_) => do_some_thing,
-      Err(e) => println!("{}". e)
-    }
-    */
   }
 }
