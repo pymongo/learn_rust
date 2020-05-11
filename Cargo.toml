@@ -8,6 +8,7 @@ edition = "2018"
 
 [dev-dependencies]
 rand = "*"
+chrono = "*"
 # 以下四个库都是在reqwest解析服务器返回的json数据中用到
 tokio = { version = "*", features = ["full"] }
 reqwest = { version = "*", features = ["json"] }
