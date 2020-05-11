@@ -1,4 +1,8 @@
-# 学习资料
+# Rust学习笔记
+
+记录我学习Rust的一些基础知识以及Rust中一些很酷的代码
+
+## 学习资料
 
 - [Rust Book猜数字和哲学家进餐问题的项目式教学](https://doc.rust-lang.org/1.0.0/book/dining-philosophers.html)
 - [YouTube上dcode的rust入门教程(42集)](https://www.youtube.com/watch?v=vOMJlQ5B-M0&list=PLVvjrrRCBy2JSHf9tGxGKJ-bYAN_uDCUL)
