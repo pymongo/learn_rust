@@ -4,7 +4,6 @@ pub mod argv;
 pub mod enum_match;
 pub mod iter_vec;
 //pub mod http_request;
-pub mod option_type;
 pub mod random_and_tuple;
 pub mod read_file;
 pub mod reference;
