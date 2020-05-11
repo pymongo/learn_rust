@@ -1,4 +1,4 @@
-extern crate reqwest;
+use reqwest;
 use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
 

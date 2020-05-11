@@ -8,13 +8,13 @@ fn outer1() -> impl FnMut() -> bool {
   }
 }
 
-fn outer2() -> impl FnMut() {
-  let mut state = false;
-  move || {
-    state = !state;
-    println!("state = {}", state);
-  }
-}
+// fn outer2() -> impl FnMut() {
+//   let mut state = false;
+//   move || {
+//     state = !state;
+//     println!("state = {}", state);
+//   }
+// }
 
 // static mut GLOBAL_STATE: bool = false;
 fn main() {
@@ -22,18 +22,11 @@ fn main() {
   // unsafe {
   //   GLOBAL_STATE = true;
   // }
-
-  /* outer1
   let mut f = outer1();
   dbg!(f()); // true
   dbg!(f()); // false
   dbg!(f()); // true
-  */
-
-  // let mut f = outer2();
-  outer2()();
-  outer2()();
-  outer2()();
+  // outer2()();
 }
 
 /* python版写法，需要nonlocal关键词

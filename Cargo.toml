@@ -1,18 +1,14 @@
 [package]
-name = "rust_first"
+name = "rust_learn"
 version = "0.0.2"
 authors = ["吴翱翔 <pylint@yandex.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[features]
-default = [] # 数组为空表示没有别的feature依赖
-#unused = []
-#$feature_name1 = ["$package_name/$feature_name2"]
-
-[dependencies]
+[dev-dependencies]
 rand = "*"
+# 以下四个库都是在reqwest解析服务器返回的json数据中用到
 tokio = { version = "*", features = ["full"] }
 reqwest = { version = "*", features = ["json"] }
 serde = { version = "*", features = ["derive"] }
