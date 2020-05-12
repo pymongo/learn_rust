@@ -1,8 +1,8 @@
 fn main() {
-  // 该代码的效果类似`go env`命令
-  for (key, value) in std::env::vars() {
-    println!("{}: {}", key, value);
-  }
+    // 该代码的效果类似`go env`命令
+    for (key, value) in std::env::vars() {
+        println!("{}: {}", key, value);
+    }
 }
 
 /*
