@@ -8,7 +8,6 @@ const API_URL_1 : &str = "https://httpbin.org/ip";
 const API_URL_2 : &str = "https://jsonplaceholder.typicode.com/posts/88";
 
 
-#[allow(dead_code)]
 #[derive(Debug, Serialize, Deserialize)]
 struct Post {
   id: i32,
@@ -19,9 +18,8 @@ struct Post {
 }
 
 
-#[allow(dead_code)]
 #[tokio::main]
-pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
+pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
   let resp = reqwest::get(API_URL_1)
     .await?
     .json::<HashMap<String, String>>()
