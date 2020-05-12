@@ -1,6 +1,6 @@
 #![feature(test)]
-extern crate test; // 点IDE绿色的锤子编译时会报错，不过cargo build还是可以正常编译的
-                   // benchmark为了测试最佳性能，都是release级编译，暂无--debug的选项
+extern crate test;
+// benchmark为了测试最佳性能，都是release级编译，暂无--debug的选项
 
 // cargo +nightly bench --bench benchmark_demo -- --nocapture
 #[bench]

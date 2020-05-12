@@ -22,7 +22,7 @@ fn main() {
     assert_ne!(chrono_utc_naive_local, chrono_local_naive_local);
     dbg!(NaiveDateTime::from_timestamp(
         system_time_timestamp as i64,
-        0
+        0,
     ));
     dbg!(NaiveDateTime::from_timestamp(chrono_local, 0));
     dbg!(NaiveDateTime::from_timestamp(chrono_utc, 0));

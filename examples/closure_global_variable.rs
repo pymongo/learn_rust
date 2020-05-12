@@ -8,14 +8,6 @@ fn outer1() -> impl FnMut() -> bool {
     }
 }
 
-// fn outer2() -> impl FnMut() {
-//   let mut state = false;
-//   move || {
-//     state = !state;
-//     println!("state = {}", state);
-//   }
-// }
-
 // static mut GLOBAL_STATE: bool = false;
 fn main() {
     // 必须在unsafe块里才能修改全局static变量
@@ -26,7 +18,6 @@ fn main() {
     dbg!(f()); // true
     dbg!(f()); // false
     dbg!(f()); // true
-               // outer2()();
 }
 
 /* python版写法，需要nonlocal关键词
