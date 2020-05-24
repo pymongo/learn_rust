@@ -1,8 +1,10 @@
 // u8指的是uint8
+#[cfg(not)]
 fn need_to_test3() -> u8 {
     3
 }
 
+#[cfg(not)]
 #[cfg(test)] // 仅在测试环境下编译
 mod tests {
     #[test]

@@ -16,6 +16,7 @@ that pattern as a generic function, a trait, or anything else within Rust’s se
 ### 宏的drawback(弊端)
 降低可读性，类似ruby元编程，过度的元编程导致别人难以理解代码，你自己写元编程很爽代码量很少，别的同事却很难看懂宏，这也是ruby不够工程化的原因。
 错误检查不仔细，相比普通代码，宏内部的代码难以Debug，建议调试OK的代码再抽取为宏进行复用
+元编程例如define_method的代码无法被IDE检查错误也没有高亮，静态检查效果不好，
 
 # 入门rust的宏
 
@@ -29,10 +30,26 @@ that pattern as a generic function, a trait, or anything else within Rust’s se
 
 那么stringify!则是将输入的表达式转为字符串
 
+```rust,no_run
+assert_eq!(stringify!(1 + 1), "1 + 1");
+```
+
 应用1：编写宏时有时需要获取输入变量的名称
 应用2：用于Debug时，打印`变量名=变量值`的格式，例如"{}={},stringify!(var),var"
 
-不过应用2的情景一般用dbg!就可以了
+不过应用2的情景一般用dbg!就可以了，不过用stringify!可以打log
+
+### 宏的入参类型
+
+expr: 表达式
+ident: 标识符(用于define_method、dbg!等)
+block:
+?: item_type
+pad: pattern
+path
+stmt: statement
+tt: token_tree
+ty: type
 
 */
 
@@ -50,6 +67,24 @@ macro_rules! get_input_identifier {
         println!("{}", $i);
     }
 }
+
+/// ```rust,no_run
+/// define_method!(test);
+/// test();
+/// ```
+macro_rules! define_method {
+    ($method_name:ident) => {
+        fn $method_name() {
+            println!("Call method {}()", stringify!($method_name));
+        }
+    }
+}
+
+// macro_rules! my_json {
+//     {$expr:value} => {
+//         return r#"{"key":"value"}"#;
+//     }
+// }
 
 fn main() {
     // stringify!宏将Rust的

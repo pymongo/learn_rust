@@ -19,7 +19,7 @@ impl ToString for Color {
     }
 }
 
-pub fn run() {
+fn main() {
     let red = Color::new(255, 0, 0);
     red.print_rgb();
 }
