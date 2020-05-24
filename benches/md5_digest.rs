@@ -27,7 +27,7 @@ const BYTES_STRING: &[u8] = "market_id=ethusdt&nonce=1589357159&price=100&public
 */
 
 // 结论md-5库性能最好
-use md5::{Md5, Digest};
+use md5::{Digest, Md5};
 #[bench]
 fn md_5(bencher: &mut test::Bencher) {
     bencher.iter(|| {
