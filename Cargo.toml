@@ -14,3 +14,6 @@ tokio = { version = "*", features = ["full"] }
 reqwest = { version = "*", features = ["json"] }
 serde = { version = "*", features = ["derive"] }
 serde_json = "*"
+
+# 结论:md-5的性能最好
+md-5 = "*"

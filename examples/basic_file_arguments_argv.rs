@@ -1,5 +1,4 @@
-#[allow(dead_code)]
-pub fn run() {
+fn main() {
     // 获取命令行参数
     let args: Vec<String> = std::env::args().collect();
 
