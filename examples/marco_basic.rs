@@ -72,6 +72,7 @@ macro_rules! get_input_identifier {
 /// define_method!(test);
 /// test();
 /// ```
+#[cfg(not)]
 macro_rules! define_method {
     ($method_name:ident) => {
         fn $method_name() {
@@ -86,6 +87,19 @@ macro_rules! define_method {
 //     }
 // }
 
+macro_rules! my_map {
+    ($($key:expr => $value:expr)*) => {
+        // 注意里面有一对大括号
+        {
+            let mut map = std::collections::HashMap::new();
+            $(
+                map.insert($key, $value);
+            )*
+            map
+        }
+    }
+}
+
 fn main() {
     // stringify!宏将Rust的
     assert_eq!(stringify!(1 + 1), "1 + 1");
@@ -94,4 +108,8 @@ fn main() {
     new_order!(bid => 1);
     let is_ask = true;
     get_input_identifier!(is_ask);
+    dbg!(my_map!{
+        "one"=>1
+        "two"=>2
+    });
 }
