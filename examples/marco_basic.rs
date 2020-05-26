@@ -41,15 +41,18 @@ assert_eq!(stringify!(1 + 1), "1 + 1");
 
 ### 宏的入参类型
 
-expr: 表达式
-ident: 标识符(用于define_method、dbg!等)
-block:
-?: item_type
-pad: pattern
-path
-stmt: statement
-tt: token_tree
-ty: type
+ident: an identifier. Examples: x; foo.
+path: a qualified name. Example: T::SpecialA.
+expr: an expression. Examples: 2 + 2; if true { 1 } else { 2 }; f(42).
+ty: a type. Examples: i32; Vec<(char, String)>; &T.
+pat: a pattern. Examples: Some(t); (17, 'a'); _.
+stmt: a single statement. Example: let x = 3.
+block: a brace-delimited sequence of statements. Example: { log(error, "hi"); return 12; }.
+item: an item. Examples: fn foo() { }; struct Bar;.
+meta: a "meta item", as found in attributes. Example: cfg(target_os = "windows").
+
+tt: a single token tree.
+a sequence of token trees surrounded by matching (), [], or {}, or any other single token.
 
 */
 
@@ -87,11 +90,22 @@ macro_rules! define_method {
 //     }
 // }
 
+// marcro中出现两重花括号，外层花括号可换成中括号或小括号
+// The inner braces are part of the expanded syntax
+// multiple statements, including let-bindings, we use a block.
+// If your macro expands to a single expression, you don’t need this extra layer of braces.
+// delimited by curly braces, e.g. foo! { ... }, or
+// terminated by a semicolon, e.g. foo!(...);
 macro_rules! my_map {
+    // $(...)* 表示可以出现0次或多次
+    // it’ll be duplicated, as appropriate(视情况而复制)
+    // $(...),* will match zero or more expressions, separated by commas
+    // $(...),+ one or more
     ($($key:expr => $value:expr)*) => {
-        // 注意里面有一对大括号
+        // 注意里面有一对大括号，允许通过大括号的方式调用宏
         {
             let mut map = std::collections::HashMap::new();
+            // $(...)* 表示入参重复了多少次，这里就会重复走多少次
             $(
                 map.insert($key, $value);
             )*
@@ -99,6 +113,19 @@ macro_rules! my_map {
         }
     }
 }
+
+/*
+multiplication has greater precedence(优先级) than addition
+#define FIVE_TIMES(x) 5 * x
+
+int main() {
+    // 2*5+3
+    printf("%d\n", FIVE_TIMES(2 + 3));
+    return 0;
+}
+*/
+
+// invocation: 祈求；调用
 
 fn main() {
     // stringify!宏将Rust的
