@@ -17,7 +17,10 @@ async fn http_post_echo_server() {
         user_id: 1
     };
     let client = Client::default();
-    let response = client.post(ECHO_SERVER).send_form(&form).await;
+    let response = client
+        .post(ECHO_SERVER)
+        .send_form(&form)
+        .await;
     let resp_body_bytes = response.unwrap().body().await.unwrap();
     let resp_string = std::str::from_utf8(&resp_body_bytes).unwrap();
     println!("response = {}", resp_string);
