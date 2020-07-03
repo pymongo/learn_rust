@@ -10,6 +10,7 @@ chrono = "*"
 md-5 = "*"
 tokio = { version = "*", features = ["full"] }
 actix-web = "*"
+actix-rt = "*"
 reqwest = { version = "*", features = ["json"] }
 serde = { version = "*", features = ["derive"] }
 serde_json = "*"
