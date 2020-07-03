@@ -2,9 +2,7 @@ use reqwest;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
-#[allow(dead_code)]
 const API_URL_1: &str = "https://httpbin.org/ip";
-#[allow(dead_code)]
 const API_URL_2: &str = "https://jsonplaceholder.typicode.com/posts/88";
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -23,9 +21,17 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .json::<HashMap<String, String>>()
         .await?;
     println!("{:#?}", resp);
+
+    let resp: Post = reqwest::get(API_URL_2)
+        .await?
+        .json()
+        .await?;
+    println!("{:#?}", resp);
+
     Ok(())
 }
 
+#[cfg(not)]
 const JSON_STR: &str = r#"
   {
     "userId": 1,
@@ -35,30 +41,13 @@ const JSON_STR: &str = r#"
   }
 "#;
 
-#[allow(dead_code)]
+#[cfg(not)]
 pub fn deserialize_json_str() {
     let res = serde_json::from_str(JSON_STR);
     if res.is_ok() {
         let json_value: serde_json::Value = res.unwrap();
+        // let json_value: Post = res.unwrap();
         // 如果找不到json的key，会返回null
         println!("json_value[\"userId\"] = {}", json_value["userId"])
     }
-}
-
-#[allow(dead_code)]
-pub fn gson_deserialize() {
-    let res = serde_json::from_str(JSON_STR);
-    if res.is_ok() {
-        let json_value: Post = res.unwrap();
-        // 如果找不到json的key，会返回null
-        println!("json_value[\"userId\"] = {}", json_value.user_id)
-    }
-}
-
-#[allow(dead_code)]
-#[tokio::main]
-pub async fn gson() -> Result<(), Box<dyn std::error::Error>> {
-    let resp: Post = reqwest::get(API_URL_2).await?.json().await?;
-    println!("{:#?}", resp);
-    Ok(())
 }
