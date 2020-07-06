@@ -8,12 +8,7 @@ fn outer1() -> impl FnMut() -> bool {
     }
 }
 
-// static mut GLOBAL_STATE: bool = false;
 fn main() {
-    // 必须在unsafe块里才能修改全局static变量
-    // unsafe {
-    //   GLOBAL_STATE = true;
-    // }
     let mut f = outer1();
     dbg!(f()); // true
     dbg!(f()); // false
