@@ -12,6 +12,15 @@ fn get_yesterday_and_tomorrow_api() {
     dbg!(yesterday, today, tomorrow);
 }
 
+// 通过日期加减的方式，获取昨天和明天的日期
+#[test]
+fn get_yesterday_and_tomorrow_by_chrono_duration() {
+    let today: Date<Local> = Local::today();
+    let yesterday: Date<Local> = today - chrono::Duration::days(1);
+    let tomorrow: Date<Local> = today + chrono::Duration::days(1);
+    dbg!(yesterday, today, tomorrow);
+}
+
 
 // 两个日期相减
 #[test]
