@@ -3,6 +3,16 @@ use std::ops::Add;
 
 fn main() {}
 
+// 获取昨天、明天的API
+#[test]
+fn get_yesterday_and_tomorrow_api() {
+    let today: Date<Local> = Local::today();
+    let yesterday: Date<Local> = today.pred();
+    let tomorrow: Date<Local> = today.succ();
+    dbg!(yesterday, today, tomorrow);
+}
+
+
 // 两个日期相减
 #[test]
 fn timedelta_days_subtract() {
