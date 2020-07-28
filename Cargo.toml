@@ -8,6 +8,7 @@ edition = "2018"
 rand = "*"
 chrono = "*"
 md-5 = "*"
+flate2 = "*" # Rust语言主要作者alexcrichton开发的一个gzip库
 tokio = { version = "*", features = ["full"] }
 actix-web = "*"
 actix-rt = "*"
