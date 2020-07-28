@@ -4,8 +4,8 @@ extern crate test;
 
 use rust_decimal::Decimal;
 use rust_decimal::RoundingStrategy::RoundHalfUp;
-use bigdecimal::BigDecimal;
-use bigdecimal::ToPrimitive;
+// 两个库的Zero, One Trait都是用的同一个crate
+use bigdecimal::{BigDecimal, Zero, One, Signed, ToPrimitive};
 use num_bigint::BigInt;
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
@@ -19,7 +19,7 @@ fn bigdecimal_mul(bencher: &mut test::Bencher) {
     });
 }
 
-/*
+/* 乘法 decimal的性能2.5倍以上
 test bigdecimal_mul ... bench:         566 ns/iter (+/- 590)
 test decimal_mul    ... bench:         193 ns/iter (+/- 67)
 */
@@ -32,9 +32,101 @@ fn decimal_mul(bencher: &mut test::Bencher) {
     });
 }
 
-fn round(decimal: &BigDecimal, round_digits: i64) -> BigDecimal {
-    use bigdecimal::Signed;
+#[bench]
+fn bigdecimal_div(bencher: &mut test::Bencher) {
+    bencher.iter(|| {
+        let a = BigDecimal::from_str("9.86960406437476").unwrap();
+        let b = BigDecimal::from_str("3.1415926").unwrap();
+        let _ = &a / &b;
+    });
+}
 
+/* 除法: 两个库打平。decimal的作者承认除法为了算准很耗费时间，很难优化
+test bigdecimal_div       ... bench:       1,199 ns/iter (+/- 289)
+test decimal_div          ... bench:       1,166 ns/iter (+/- 262)
+*/
+#[bench]
+fn decimal_div(bencher: &mut test::Bencher) {
+    bencher.iter(|| {
+        let a = Decimal::from_str("9.86960406437476").unwrap();
+        let b = Decimal::from_str("3.1415926").unwrap();
+        let _ = a / b;
+    });
+}
+
+#[bench]
+fn bigdecimal_construct(bencher: &mut test::Bencher) {
+    bencher.iter(|| {
+        let _ = BigDecimal::from_str("-3.1415926").unwrap();
+        let _ = BigDecimal::zero();
+        let _ = BigDecimal::one();
+        let _ = BigDecimal::from(2);
+    });
+}
+
+/* 构造方面, decimal性能好50%
+test bigdecimal_construct ... bench:         501 ns/iter (+/- 37)
+test decimal_construct    ... bench:         345 ns/iter (+/- 84)
+*/
+#[bench]
+fn decimal_construct(bencher: &mut test::Bencher) {
+    bencher.iter(|| {
+        let _ = Decimal::from_str("-3.1415926").unwrap();
+        let _ = Decimal::zero();
+        let _ = Decimal::one();
+        let _ = Decimal::from(2);
+    });
+}
+
+#[bench]
+fn bigdecimal_get_sign(bencher: &mut test::Bencher) {
+    bencher.iter(|| {
+        let a = BigDecimal::from_str("-3.1415926").unwrap();
+        let b = BigDecimal::from(2);
+        assert!(a.is_negative());
+        assert!(b.is_positive());
+    });
+}
+
+/* 获取符号: decimal性能好50%
+test bigdecimal_get_sign  ... bench:         448 ns/iter (+/- 27)
+test decimal_get_sign     ... bench:         306 ns/iter (+/- 90)
+*/
+#[bench]
+fn decimal_get_sign(bencher: &mut test::Bencher) {
+    bencher.iter(|| {
+        let a = Decimal::from_str("-3.1415926").unwrap();
+        let b = Decimal::from(2);
+        assert!(a.is_sign_negative());
+        assert!(b.is_sign_positive());
+    });
+}
+
+#[bench]
+fn bigdecimal_get_scale(bencher: &mut test::Bencher) {
+    bencher.iter(|| {
+        let a = BigDecimal::from_str("3.1415926").unwrap();
+        let b = BigDecimal::from(2);
+        assert_eq!(a.as_bigint_and_exponent().1, 7);
+        assert!(b.is_integer());
+    });
+}
+
+/* 获取精度: decimal性能好70%
+test bigdecimal_get_scale ... bench:         558 ns/iter (+/- 41)
+test decimal_get_scale    ... bench:         321 ns/iter (+/- 42)
+*/
+#[bench]
+fn decimal_get_scale(bencher: &mut test::Bencher) {
+    bencher.iter(|| {
+        let a = Decimal::from_str("3.1415926").unwrap();
+        let b = Decimal::from(2);
+        assert_eq!(a.scale(), 7);
+        assert_eq!(b.scale(), 0);
+    });
+}
+
+fn round(decimal: &BigDecimal, round_digits: i64) -> BigDecimal {
     let (bigint, decimal_part_digits) = decimal.as_bigint_and_exponent();
     let need_to_round_digits = decimal_part_digits - round_digits;
     if round_digits >= 0 && need_to_round_digits <= 0 {
@@ -95,7 +187,7 @@ fn bigdecimal_round(bencher: &mut test::Bencher) {
     });
 }
 
-/*
+/* round方面: decimal性能翻倍，而且提供多种round的策略
 test bigdecimal_round ... bench:      17,498 ns/iter (+/- 3,707)
 test decimal_round    ... bench:       8,747 ns/iter (+/- 1,475)
 */
@@ -130,6 +222,11 @@ fn bigdecimal_serialize(bencher: &mut test::Bencher) {
     });
 }
 
+
+/* 序列化和反序列化两个库差距不大，bigdecimal更稳定
+test bigdecimal_serialize ... bench:       1,454 ns/iter (+/- 72)
+test decimal_serialize    ... bench:       1,362 ns/iter (+/- 225)
+*/
 #[bench]
 fn decimal_serialize(bencher: &mut test::Bencher) {
     bencher.iter(|| {
