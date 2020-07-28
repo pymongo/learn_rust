@@ -54,6 +54,36 @@ fn decimal_div(bencher: &mut test::Bencher) {
     });
 }
 
+const NUMS: [&str; 5] = ["1.12", "2.41", "3.1415926", "7.65", "8.12"];
+
+#[bench]
+fn bigdecimal_cmp(bencher: &mut test::Bencher) {
+    bencher.iter(|| {
+        let mut nums: Vec<BigDecimal> = Vec::with_capacity(5);
+        for num in &NUMS {
+            nums.push(BigDecimal::from_str(num).unwrap());
+        }
+        let target = BigDecimal::from_str("7.65").unwrap();
+        let _ = nums.binary_search(&target).unwrap();
+    });
+}
+
+/* 大小比较: decimal性能翻倍
+test bigdecimal_cpm       ... bench:       2,647 ns/iter (+/- 361)
+test decimal_cmp          ... bench:       1,486 ns/iter (+/- 384)
+*/
+#[bench]
+fn decimal_cmp(bencher: &mut test::Bencher) {
+    bencher.iter(|| {
+        let mut nums: Vec<Decimal> = Vec::with_capacity(5);
+        for num in &NUMS {
+            nums.push(Decimal::from_str(num).unwrap());
+        }
+        let target = Decimal::from_str("7.65").unwrap();
+        let _ = nums.binary_search(&target).unwrap();
+    });
+}
+
 #[bench]
 fn bigdecimal_construct(bencher: &mut test::Bencher) {
     bencher.iter(|| {
