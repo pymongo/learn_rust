@@ -8,6 +8,9 @@ edition = "2018"
 rand = "*"
 chrono = "*"
 md-5 = "*"
+rust_decimal = "*" # bigdecimal-rs库的作者3个多月都没有维护了，试试另一个知名库，从sqlx更新日志得知，下个版本的sqlx支持rust-decimal
+bigdecimal = { version="*", features = ["serde"] }
+num-bigint = "0.2.6"
 flate2 = "*" # Rust语言主要作者alexcrichton开发的一个gzip库
 tokio = { version = "*", features = ["full"] }
 actix-web = "*"
