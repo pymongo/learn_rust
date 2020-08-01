@@ -28,7 +28,9 @@ fn decimal_mul(bencher: &mut test::Bencher) {
     bencher.iter(|| {
         let price = Decimal::from_str("1.1").unwrap();
         let volume = Decimal::from(1);
-        let _total = &price * &volume;
+        // Decimal这个库更简单方便，乘法的lhs和rhs不必写成指针形式，
+        // 就算写成指针格式(无论指针怎么加)，运算速度都一样，而BigDecimal如果乘法的左右两边(lhs和rhs)不是指针，性能慢很多
+        let _total = price * volume;
     });
 }
 

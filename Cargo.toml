@@ -5,6 +5,7 @@ authors = ["吴翱翔 <pylint@yandex.com>"]
 edition = "2018"
 
 [dev-dependencies]
+actix = "*"
 rand = "*"
 chrono = "*"
 md-5 = "*"
@@ -18,3 +19,7 @@ actix-rt = "*"
 reqwest = { version = "*", features = ["json"] }
 serde = { version = "*", features = ["derive"] }
 serde_json = "*"
+
+# dependencies for actix_web_stream_response
+bytes = "*"
+actix-utils = "1.0.3"

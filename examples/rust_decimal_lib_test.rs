@@ -3,6 +3,7 @@ use bigdecimal::BigDecimal;
 // use rust_decimal::prelude::FromStr;
 use std::str::FromStr;
 use std::mem::size_of_val;
+use rust_decimal::prelude::ToPrimitive;
 
 fn main() {
     let rust_decimal_a = Decimal::from_str("3.1415926").unwrap();
