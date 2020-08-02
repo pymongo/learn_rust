@@ -44,6 +44,7 @@ Actors cannot be referenced directly, only by their addresses
 
 ### 2.1 空结构体
 空结构体可以用 `let addr = MyActor.start();`
+其实这种情况完整写法跟2.2.2一样，都是MyActor{}.start();
 所以Actor创建完之后就一定会被运行
 
 ### 2.2 有字段的结构体

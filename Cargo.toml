@@ -23,3 +23,8 @@ serde_json = "*"
 # dependencies for actix_web_stream_response
 bytes = "*"
 actix-utils = "1.0.3"
+
+# dependencies for actix_websocket_client
+awc = "*" # actix_web_client
+actix-codec = "*"
+futures = "*"
