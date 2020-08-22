@@ -48,7 +48,7 @@ async fn main() -> std::io::Result<()> {
             .service(count_data)
             .service(count_app_data)
     })
-        .bind("0.0.0.0:8080")?
-        .run()
-        .await
+    .bind("0.0.0.0:8080")?
+    .run()
+    .await
 }

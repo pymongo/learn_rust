@@ -19,6 +19,7 @@ actix-rt = "*"
 reqwest = { version = "*", features = ["json"] }
 serde = { version = "*", features = ["derive"] }
 serde_json = "*"
+itertools = "*"
 
 # dependencies for actix_web_stream_response
 bytes = "*"

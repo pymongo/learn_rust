@@ -1,5 +1,5 @@
-use actix_web::HttpResponse;
 use actix_web::web::get;
+use actix_web::HttpResponse;
 
 async fn response_body() -> HttpResponse {
     let str = "bytes".to_string();
@@ -16,7 +16,7 @@ async fn main() -> std::io::Result<()> {
             .wrap(actix_web::middleware::Logger::default())
             .route("/", get().to(response_body))
     })
-        .bind("0.0.0.0:8000")?
-        .run()
-        .await
+    .bind("0.0.0.0:8000")?
+    .run()
+    .await
 }

@@ -1,5 +1,5 @@
+use flate2::write::{GzDecoder, GzEncoder};
 use flate2::Compression;
-use flate2::write::{GzEncoder, GzDecoder};
 use std::io::Write;
 
 fn encode_str_to_gzip_bytes(s: &str) -> Vec<u8> {
@@ -22,4 +22,6 @@ fn main() {
     let decode_str = decode_gzip_bytes_to_str(gzip_bytes);
     println!("{}", decode_str);
     assert_eq!(decode_str.as_str(), s);
+
+    use std::collections::BinaryHeap;
 }

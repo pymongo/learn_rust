@@ -1,4 +1,4 @@
-use actix::{Actor, Context, Message, System, Handler, WrapFuture, AsyncContext};
+use actix::{Actor, AsyncContext, Context, Handler, Message, System, WrapFuture};
 
 struct MyActor;
 
@@ -29,7 +29,7 @@ impl Handler<Msg> for MyActor {
             async {
                 println!("In async code block");
             }
-                .into_actor(self),
+            .into_actor(self),
         );
 
         // 方法2，使用Actix同步函数内的异步模板: addr.send().into_actor(self).then(/*response回调*/).wait(ctx);

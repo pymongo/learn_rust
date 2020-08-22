@@ -68,7 +68,7 @@ macro_rules! new_order {
 macro_rules! get_input_identifier {
     ($i:ident) => {
         println!("{}", $i);
-    }
+    };
 }
 
 /// ```rust,no_run
@@ -81,7 +81,7 @@ macro_rules! define_method {
         fn $method_name() {
             println!("Call method {}()", stringify!($method_name));
         }
-    }
+    };
 }
 
 // macro_rules! my_json {
@@ -135,7 +135,7 @@ fn main() {
     new_order!(bid => 1);
     let is_ask = true;
     get_input_identifier!(is_ask);
-    dbg!(my_map!{
+    dbg!(my_map! {
         "one"=>1
         "two"=>2
     });

@@ -4,7 +4,7 @@ const ECHO_SERVER: &str = "http://postman-echo.com/post";
 
 #[derive(serde::Serialize, serde::Deserialize)]
 struct Form {
-    user_id: u32
+    user_id: u32,
 }
 
 #[actix_rt::main]
@@ -13,14 +13,9 @@ async fn main() {
 }
 
 async fn http_post_echo_server() {
-    let form = Form {
-        user_id: 1
-    };
+    let form = Form { user_id: 1 };
     let client = Client::default();
-    let response = client
-        .post(ECHO_SERVER)
-        .send_form(&form)
-        .await;
+    let response = client.post(ECHO_SERVER).send_form(&form).await;
     let resp_body_bytes = response.unwrap().body().await.unwrap();
     let resp_string = std::str::from_utf8(&resp_body_bytes).unwrap();
     println!("response = {}", resp_string);

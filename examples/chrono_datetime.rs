@@ -1,4 +1,4 @@
-use chrono::{Date, Datelike, Local, NaiveTime, TimeZone, Weekday, Timelike};
+use chrono::{Date, Datelike, Local, NaiveTime, TimeZone, Timelike, Weekday};
 use std::ops::Add;
 
 fn main() {}
@@ -20,7 +20,6 @@ fn get_yesterday_and_tomorrow_by_chrono_duration() {
     let tomorrow: Date<Local> = today + chrono::Duration::days(1);
     dbg!(yesterday, today, tomorrow);
 }
-
 
 // 两个日期相减
 #[test]
@@ -73,4 +72,3 @@ fn get_local_timezone() {
     temp[2].to_string();
     */
 }
-

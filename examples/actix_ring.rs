@@ -113,7 +113,9 @@ impl Handler<Msg> for Node {
         );
         self.messages_receive_count += 1;
         self.next_recipient
-            .do_send(Msg { from_actor_id: self.id })
+            .do_send(Msg {
+                from_actor_id: self.id,
+            })
             .unwrap();
     }
 }
@@ -130,7 +132,7 @@ fn main() {
             messages_receive_count: 0,
             next_recipient: first_addr.recipient(),
         }
-            .start();
+        .start();
 
         for id in (3..=5).rev() {
             successor_addr = Node {
@@ -138,7 +140,7 @@ fn main() {
                 messages_receive_count: 0,
                 next_recipient: successor_addr.recipient(),
             }
-                .start();
+            .start();
         }
 
         // dummyHead?
@@ -148,7 +150,7 @@ fn main() {
             next_recipient: successor_addr.recipient(),
         }
     });
-    let _msg_req = second_node.send(Msg {from_actor_id: 2});
+    let _msg_req = second_node.send(Msg { from_actor_id: 2 });
     /*
     start: Node(1)
     start: Node(5)

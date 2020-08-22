@@ -5,7 +5,7 @@ extern crate test;
 use rust_decimal::Decimal;
 use rust_decimal::RoundingStrategy::RoundHalfUp;
 // 两个库的Zero, One Trait都是用的同一个crate
-use bigdecimal::{BigDecimal, Zero, One, Signed, ToPrimitive};
+use bigdecimal::{BigDecimal, One, Signed, ToPrimitive, Zero};
 use num_bigint::BigInt;
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
@@ -229,31 +229,35 @@ fn decimal_round(bencher: &mut test::Bencher) {
         for &(input, round_digit, output) in &ROUND_TEST_CASES {
             let input = Decimal::from_str(input).unwrap();
             let output = Decimal::from_str(output).unwrap();
-            assert_eq!(input.round_dp_with_strategy(round_digit, RoundHalfUp), output);
+            assert_eq!(
+                input.round_dp_with_strategy(round_digit, RoundHalfUp),
+                output
+            );
         }
     });
 }
 
 #[derive(Serialize, Deserialize)]
 struct BigDecimalForm {
-    data: BigDecimal
+    data: BigDecimal,
 }
 
 #[derive(Serialize, Deserialize)]
 struct DecimalForm {
-    data: Decimal
+    data: Decimal,
 }
 
 #[bench]
 fn bigdecimal_serialize(bencher: &mut test::Bencher) {
     bencher.iter(|| {
-        let raw_data = BigDecimalForm { data: BigDecimal::from_str("3.1415926").unwrap() };
+        let raw_data = BigDecimalForm {
+            data: BigDecimal::from_str("3.1415926").unwrap(),
+        };
         let serialized_string = serde_json::to_string(&raw_data).unwrap();
         let deserialized_data: BigDecimalForm = serde_json::from_str(&serialized_string).unwrap();
         assert!(deserialized_data.data.eq(&raw_data.data))
     });
 }
-
 
 /* 序列化和反序列化两个库差距不大，bigdecimal更稳定
 test bigdecimal_serialize ... bench:       1,454 ns/iter (+/- 72)
@@ -262,7 +266,9 @@ test decimal_serialize    ... bench:       1,362 ns/iter (+/- 225)
 #[bench]
 fn decimal_serialize(bencher: &mut test::Bencher) {
     bencher.iter(|| {
-        let raw_data = DecimalForm { data: Decimal::from_str("3.1415926").unwrap() };
+        let raw_data = DecimalForm {
+            data: Decimal::from_str("3.1415926").unwrap(),
+        };
         let serialized_string = serde_json::to_string(&raw_data).unwrap();
         let deserialized_data: DecimalForm = serde_json::from_str(&serialized_string).unwrap();
         assert!(deserialized_data.data.eq(&raw_data.data))

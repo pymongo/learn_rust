@@ -22,10 +22,7 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .await?;
     println!("{:#?}", resp);
 
-    let resp: Post = reqwest::get(API_URL_2)
-        .await?
-        .json()
-        .await?;
+    let resp: Post = reqwest::get(API_URL_2).await?.json().await?;
     println!("{:#?}", resp);
 
     Ok(())

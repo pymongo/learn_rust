@@ -54,7 +54,7 @@ fn main() {
             name: String::from("Game 2"),
             addr: addr.recipient(),
         }
-            .start();
+        .start();
 
         // let's start pings
         addr2.do_send(Ping { id: 10 });
