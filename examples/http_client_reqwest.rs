@@ -14,6 +14,7 @@ struct Post {
     user_id: i32,
 }
 
+// reqwest有个feature可以设置成blocking不需要await的HTTP请求，或者用isahc库实现同步的HTTP请求
 #[tokio::main]
 pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let resp = reqwest::get(API_URL_1)
