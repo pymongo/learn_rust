@@ -3,6 +3,12 @@
 // Rust没有继承, trait A : B 实际上是给A加上一个约束条件: implement B also need to implement A
 trait Animal {
     fn eat(&self);
+    fn print_type_name(&self) {
+        dbg!(std::any::type_name::<Self>());
+        dbg!(std::mem::size_of::<&Self>());
+        dbg!(std::mem::size_of_val(&self));
+        // dbg!(std::mem::size_of_val(self));
+    }
 }
 
 struct Cat;
@@ -26,13 +32,27 @@ fn make_animal_eating(animal: &dyn Animal) {
 }
 
 fn main() {
-    make_animal_eating(&Cat{});
-    make_animal_eating(&Dog{});
+    // make_animal_eating(&Cat{});
     // cat和dog实例需要分配在堆内存中才能装入Vec，否则会报错: Sized is not known at compile time
-    let cat = Box::new(Cat{});
+    // 或者只存cat和dog的指针
+    let cat = Box::new(Cat);
     let dog = Box::new(Dog{});
     let animals: Vec<Box<dyn Animal>> = vec![cat, dog];
     for animal in animals {
         animal.eat();
+    }
+
+    // let b = Cat;
+    // the size for values of type `dyn Animal` cannot be known at compilation time
+    // trait object需要分配在堆内存中才能take ownership?
+    // let a: Vec<dyn Animal> = vec![b];
+
+    println!("-- Vec<&dyn Animal> --");
+    let cat2 = Cat;
+    let dog2 = Dog{};
+    let animals2: Vec<&dyn Animal> = vec![&cat2, &dog2];
+    for animal in animals2 {
+        make_animal_eating(animal);
+        animal.print_type_name();
     }
 }
