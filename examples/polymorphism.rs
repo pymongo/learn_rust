@@ -27,9 +27,22 @@ impl Animal for Dog {
     }
 }
 
-fn make_animal_eating(animal: &dyn Animal) {
+fn eat_dyn(animal: &dyn Animal) {
     animal.eat();
 }
+
+fn eat_static_impl_trait(animal: &impl Animal) {
+    animal.eat();
+}
+
+fn eat_static<T: Animal>(animal: &T) {
+    animal.eat();
+}
+
+// the trait `Animal` is not implemented for `&dyn Animal`
+// fn make_animal_eating_2<T: Animal>(animal: T) {
+//     animal.eat();
+// }
 
 fn main() {
     // make_animal_eating(&Cat{});
@@ -45,14 +58,18 @@ fn main() {
     // let b = Cat;
     // the size for values of type `dyn Animal` cannot be known at compilation time
     // trait object需要分配在堆内存中才能take ownership?
+    // dyn Trait (unsized type) implements Trait. Implementations for &dyn Trait and/or &mut dyn Trait need to be explicitly provided.
     // let a: Vec<dyn Animal> = vec![b];
 
     println!("-- Vec<&dyn Animal> --");
     let cat2 = Cat;
     let dog2 = Dog{};
+    eat_static(&cat2);
+    eat_dyn_impl_trait(&dog2);
     let animals2: Vec<&dyn Animal> = vec![&cat2, &dog2];
     for animal in animals2 {
-        make_animal_eating(animal);
+        eat_dyn(animal);
+        // make_animal_eating_2(animal);
         animal.print_type_name();
     }
 }
