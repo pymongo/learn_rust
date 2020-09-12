@@ -49,7 +49,7 @@ fn main() {
     // cat和dog实例需要分配在堆内存中才能装入Vec，否则会报错: Sized is not known at compile time
     // 或者只存cat和dog的指针
     let cat = Box::new(Cat);
-    let dog = Box::new(Dog{});
+    let dog = Box::new(Dog {});
     let animals: Vec<Box<dyn Animal>> = vec![cat, dog];
     for animal in animals {
         animal.eat();
@@ -63,7 +63,7 @@ fn main() {
 
     println!("-- Vec<&dyn Animal> --");
     let cat2 = Cat;
-    let dog2 = Dog{};
+    let dog2 = Dog {};
     eat_static(&cat2);
     eat_dyn_impl_trait(&dog2);
     let animals2: Vec<&dyn Animal> = vec![&cat2, &dog2];

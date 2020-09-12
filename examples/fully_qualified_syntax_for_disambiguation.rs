@@ -25,7 +25,6 @@ fn main() {
     // 推荐用下面这种可读性更高的写法
     <S as B>::test(&s);
 
-
     let a = Some("a".to_string());
     match a {
         Some(s) => println!("{}", s),
@@ -33,5 +32,4 @@ fn main() {
     }
     // value borrowed here after partial move
     // println!("{:?}", a);
-
 }

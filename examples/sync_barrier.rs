@@ -1,4 +1,4 @@
-use std::sync::{Arc,Barrier};
+use std::sync::{Arc, Barrier};
 
 const N_THREADS: usize = 5;
 
