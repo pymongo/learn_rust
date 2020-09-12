@@ -14,7 +14,7 @@ use bytes::Bytes;
 use futures::stream::{SplitSink, StreamExt};
 
 fn main() {
-    // log4rs::init_file("config/log4rs.yml", Default::default()).unwrap();
+    // log4rs::init_file("config.toml/log4rs.yml", Default::default()).unwrap();
 
     let sys = System::new("websocket-client");
 

@@ -33,7 +33,7 @@ struct AppData(Mutex<i32>);
 // TODO 个人认为更好的解决方案是once_cell或actomic，如果是可变全局变量就用再套一层Mutex/RwLock
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
-    log4rs::init_file("config/log4rs.yml", Default::default()).unwrap();
+    log4rs::init_file("config.toml/log4rs.yml", Default::default()).unwrap();
     // FIXME actix2.0版本app_data在HttpServer::new的外面(main函数作用域)中初始化才能正常使用(否则发10个请求counter可能才加到2)
     let app_data = web::Data::new(AppData(Mutex::new(0)));
     // FIXME actix2.0版本data在HttpServer::new的外面(main函数作用域)中初始化才能正常使用(否则发10个请求counter可能才加到2)
