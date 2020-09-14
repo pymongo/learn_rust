@@ -4,6 +4,11 @@ version = "0.1.0"
 authors = ["吴翱翔 <pylint@yandex.com>"]
 edition = "2018"
 
+[workspace]
+members = [
+    "rust_call_cpp_static_lib",
+]
+
 [dev-dependencies]
 actix = "*"
 rand = "*"
@@ -20,11 +25,9 @@ reqwest = { version = "*", features = ["json"] }
 serde = { version = "*", features = ["derive"] }
 serde_json = "*"
 itertools = "*"
-
 # dependencies for actix_web_stream_response
 bytes = "*"
 actix-utils = "1.0.3"
-
 # dependencies for actix_websocket_client
 awc = "*" # actix_web_client
 actix-codec = "*"
