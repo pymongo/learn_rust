@@ -1,11 +1,12 @@
-#![feature(test)]
+#![feature(test, once_cell)]
 extern crate test;
+// benchmark为了测试最佳性能，都是release级编译，暂无--debug的选项
 // cargo +nightly bench --bench get_decimal_zero
 
 use bigdecimal::{BigDecimal, Zero};
-use once_cell::sync::OnceCell;
+use std::lazy::SyncOnceCell;
 
-static ZERO: OnceCell<BigDecimal> = OnceCell::new();
+static ZERO: SyncOnceCell<BigDecimal> = SyncOnceCell::new();
 
 #[bench]
 fn global_zero(bencher: &mut test::Bencher) {
