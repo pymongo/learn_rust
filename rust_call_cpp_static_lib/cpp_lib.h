@@ -5,4 +5,4 @@
 #include <algorithm>
 extern "C" {
     void cpp_sort(int nums[], size_t n);
-};
+}

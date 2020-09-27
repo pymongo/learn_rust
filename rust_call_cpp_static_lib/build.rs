@@ -6,6 +6,6 @@ fn main() {
         .flag("-std=c++14")
         .flag("-Wall")
         .flag("-c")
-        .file("cpp_lib.cpp")
+        .file("cpp_lib_2.cpp")
         .compile("cpp_lib");
 }

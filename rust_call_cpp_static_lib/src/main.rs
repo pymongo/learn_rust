@@ -1,5 +1,6 @@
 #[link(name="cpp_lib", kind="static")]
 extern {
+    // `extern` block uses type `[i32]`, which is not FFI-safe
     fn cpp_sort(nums: &[i32; 5], n: u32);
 }
 
