@@ -1,0 +1,27 @@
+#[dev]
+[test]
+
+[test.mysql]
+host = "127.0.0.1"
+port = "12345"
+username = "root"
+password = "hi$logger"
+dbname = "db_test"
+
+[[test.redis_cluster]]
+host = "127.0.0.1"
+
+[[test.redis_cluster]]
+host = "8.8.8.8"
+
+[production]
+
+[production.mysql]
+host = "127.0.0.1"
+port = "12345"
+username = "root"
+password = "hi$logger"
+dbname = "db_production"
+
+[[production.redis_cluster]]
+host = "127.0.0.1"

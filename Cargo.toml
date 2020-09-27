@@ -32,3 +32,4 @@ actix-utils = "1.0.3"
 awc = "*" # actix_web_client
 actix-codec = "*"
 futures = "*"
+toml = "*"

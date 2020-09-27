@@ -1,8 +1,8 @@
 #![feature(allocator_api)]
-use std::alloc::{System, Layout, GlobalAlloc};
+use std::alloc::{GlobalAlloc, Layout, System};
 
 struct MyBox<T> {
-    val: *const T
+    val: *const T,
 }
 
 impl<T> MyBox<T> {

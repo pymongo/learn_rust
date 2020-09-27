@@ -20,7 +20,7 @@ impl Node<T> {
 struct List<T> {
     // dummy head and tail
     first: Node<T>,
-    tail: Node<T>
+    tail: Node<T>,
 }
 
 // impl List<T> {

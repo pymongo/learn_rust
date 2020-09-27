@@ -65,7 +65,7 @@ fn main() {
     let cat2 = Cat;
     let dog2 = Dog {};
     eat_static(&cat2);
-    eat_dyn_impl_trait(&dog2);
+    eat_static_impl_trait(&dog2);
     let animals2: Vec<&dyn Animal> = vec![&cat2, &dog2];
     for animal in animals2 {
         eat_dyn(animal);
