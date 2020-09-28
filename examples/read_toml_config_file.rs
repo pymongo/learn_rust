@@ -1,8 +1,8 @@
 /*!
 由于dotenv库只是将配置文件以key-value的格式加载到环境变量里，用完之后又不能自动调用env::remove_var去清空环境变量来回收资源
-而且toml格式支持枚举、DateTime、数组、配置项嵌套、Option等方便的数据格式(是否支持Option存疑)，所以用toml的可读性更高，
+而且toml格式支持枚举、DateTime、Array、struct、Option等方便的数据格式，所以用toml的可读性更高，
 而且能直接反序列化为Rust结构体
-但是DateTime类型这个反序列化暂时只能用toml::value::DateTime而非chrono
+但是DateTime类型这个反序列化暂时只能用toml::value::DateTime而非chrono，所以一般用不上
 虽然toml配置文件里面有数据库链接，但是还是需要额外的.env文件好让sqlx编译时检查SQL语句
 */
 use serde::Deserialize;
@@ -66,14 +66,16 @@ struct MySQLConfig {
 
 #[derive(Deserialize)]
 struct RedisClusterConfig {
-    #[allow(dead_code)]
-    host: String,
+    url: String,
+    password: Option<String>
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("env::current_dir() = {:?}", std::env::current_dir()?);
     let config = Config::new()?;
     dbg!(config.database_url(AppEnv::Production));
+    dbg!(&config.production.redis_clusters[0].url);
+    dbg!(&config.production.redis_clusters[0].password);
     assert_eq!(config.test.redis_clusters.len(), 2);
     Ok(())
 }
