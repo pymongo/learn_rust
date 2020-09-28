@@ -11,15 +11,9 @@ use std::io::Read;
 const CONFIG_FILE: &str = "examples/read_toml_config_file.toml";
 
 enum AppEnv {
+    Production,
     #[allow(dead_code)]
     Test,
-    Production,
-}
-
-#[derive(Deserialize)]
-struct Config {
-    test: ServerConfig,
-    production: ServerConfig,
 }
 
 impl Config {
@@ -33,23 +27,23 @@ impl Config {
     }
 
     fn database_url(&self, app_env: AppEnv) -> String {
-        let mysql_config = match app_env {
-            AppEnv::Test => &self.test.mysql,
-            AppEnv::Production => &self.production.mysql,
+        let dbname = match app_env {
+            AppEnv::Production => &self.mysql.dbname.production,
+            AppEnv::Test => &self.mysql.dbname.test.as_ref().unwrap(),
         };
         return format!(
             "mysql://{username}:{password}@{host}:{port}/{dbname}",
-            username = mysql_config.username,
-            password = mysql_config.password,
-            host = mysql_config.host,
-            port = mysql_config.port,
-            dbname = mysql_config.dbname,
+            username = self.mysql.username,
+            password = self.mysql.password,
+            host = self.mysql.host,
+            port = self.mysql.port,
+            dbname = dbname,
         );
     }
 }
 
 #[derive(Deserialize)]
-struct ServerConfig {
+struct Config {
     mysql: MySQLConfig,
     #[serde(rename = "redis_cluster")]
     redis_clusters: Vec<RedisClusterConfig>,
@@ -61,7 +55,13 @@ struct MySQLConfig {
     port: String,
     username: String,
     password: String,
-    dbname: String,
+    dbname: DbName,
+}
+
+#[derive(Deserialize)]
+struct DbName {
+    production: String,
+    test: Option<String>
 }
 
 #[derive(Deserialize)]
@@ -74,8 +74,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("env::current_dir() = {:?}", std::env::current_dir()?);
     let config = Config::new()?;
     dbg!(config.database_url(AppEnv::Production));
-    dbg!(&config.production.redis_clusters[0].url);
-    dbg!(&config.production.redis_clusters[0].password);
-    assert_eq!(config.test.redis_clusters.len(), 2);
+    dbg!(&config.redis_clusters[0].url);
+    dbg!(&config.redis_clusters[0].password);
+    assert_eq!(config.redis_clusters.len(), 2);
     Ok(())
 }

@@ -1,23 +1,16 @@
-[production.mysql]
+[mysql]
 host = "127.0.0.1"
-port = "12345"
+port = "3306"
 username = "root"
-password = "hi$logger"
-dbname = "db_production"
+password = "hi$there"
 
-[[production.redis_cluster]]
+[mysql.dbname]
+production = "db_production"
+#test = "db_test"
+
+[[redis_cluster]]
 url = "127.0.0.1:6379"
+password = "secret"
 
-# 其实应该叫[dev]更合适
-[test.mysql]
-host = "127.0.0.1"
-port = "12345"
-username = "root"
-password = "hi$logger"
-dbname = "db_test"
-
-[[test.redis_cluster]]
-url = "127.0.0.1:6379"
-
-[[test.redis_cluster]]
+[[redis_cluster]]
 url = "8.8.8.8:6379"
