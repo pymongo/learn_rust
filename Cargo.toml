@@ -33,3 +33,5 @@ awc = "*" # actix_web_client
 actix-codec = "*"
 futures = "*"
 toml = "*"
+hyper = "*"
+hyper-tls = "*"

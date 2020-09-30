@@ -61,13 +61,13 @@ struct MySQLConfig {
 #[derive(Deserialize)]
 struct DbName {
     production: String,
-    test: Option<String>
+    test: Option<String>,
 }
 
 #[derive(Deserialize)]
 struct RedisClusterConfig {
     url: String,
-    password: Option<String>
+    password: Option<String>,
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
