@@ -7,8 +7,8 @@ struct Node<T> {
     next: Option<Rc<RefCell<Node<T>>>>,
 }
 
-impl Node<T> {
-    fn new<T>(val: T) -> Self {
+impl<T> Node<T> {
+    fn new(val: T) -> Self {
         Node {
             data: val,
             prev: None,
