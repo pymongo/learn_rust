@@ -1,5 +1,5 @@
 #![feature(generators, generator_trait)]
-use std::future::Future;
+// use std::future::Future;
 use std::ops::Generator;
 use std::pin::Pin;
 

@@ -5,7 +5,7 @@ pub async fn get_index() -> impl Responder {
     "Hello World"
 }
 
-#[actix_rt::main]
+#[actix_web::main]
 async fn main() {
     let mut app_service = test::init_service(App::new().service(get_index)).await;
     let req = test::TestRequest::default().to_request();

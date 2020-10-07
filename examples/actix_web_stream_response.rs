@@ -9,7 +9,7 @@ async fn response_body() -> HttpResponse {
     HttpResponse::Ok().streaming(rx_body)
 }
 
-#[actix_rt::main]
+#[actix_web::main]
 async fn main() -> std::io::Result<()> {
     actix_web::HttpServer::new(move || {
         actix_web::App::new()

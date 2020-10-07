@@ -1,3 +1,4 @@
+#![cfg(not)]
 #![feature(test)]
 extern crate test;
 use serde::{Deserialize, Serialize};

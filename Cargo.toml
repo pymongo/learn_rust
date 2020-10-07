@@ -11,16 +11,14 @@ members = [
 
 [dev-dependencies]
 actix = "*"
+actix-web = "*"
 rand = "*"
 chrono = "*"
 md-5 = "*"
 rust_decimal = "*"
 bigdecimal = { version="*", features = ["serde"] }
-num-bigint = "0.2.6"
 flate2 = "*" # Rust语言主要作者alexcrichton开发的一个gzip库
-tokio = { version = "*", features = ["full"] }
-actix-web = "*"
-actix-rt = "*"
+tokio = { version = "*", features = ["macros"] }
 reqwest = { version = "*", features = ["json"] }
 serde = { version = "*", features = ["derive"] }
 serde_json = "*"

@@ -1,3 +1,4 @@
+#![cfg(not)]
 #![feature(test)]
 extern crate test;
 // cargo +nightly bench --bench bigdecimal
@@ -6,7 +7,6 @@ use rust_decimal::Decimal;
 use rust_decimal::RoundingStrategy::RoundHalfUp;
 // 两个库的Zero, One Trait都是用的同一个crate
 use bigdecimal::{BigDecimal, One, Signed, ToPrimitive, Zero};
-use num_bigint::BigInt;
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 

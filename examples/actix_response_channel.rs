@@ -53,7 +53,7 @@ impl Handler<Messages> for MyActor {
     }
 }
 
-#[actix_rt::main]
+#[actix_web::main]
 async fn main() {
     // Start MyActor in current thread
     let addr = MyActor.start();

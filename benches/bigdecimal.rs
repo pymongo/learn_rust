@@ -1,6 +1,9 @@
+/*!
+BigDecimal占据内存大小和性能都远不如rust_decimal，已弃用
+本测试就是为了比较BigDecimal在运算过程中rhs和lhs都要使用指针性能才更好的特点
+*/
 #![feature(test)]
 extern crate test;
-// cargo +nightly bench --bench bigdecimal
 
 use bigdecimal::{BigDecimal, FromPrimitive};
 use std::borrow::Borrow;
@@ -198,11 +201,13 @@ fn two_mul_both_ref(bencher: &mut test::Bencher) {
 // ========================================
 
 //////////////////// 项目中的last_price比较 ////////////////////
+#[cfg(not)]
 lazy_static::lazy_static! {
   static ref MAX_RATIO: BigDecimal = BigDecimal::from_str("1.1").unwrap();
   static ref MIN_RATIO: BigDecimal = BigDecimal::from_str("0.9").unwrap();
 }
 
+#[cfg(not)]
 #[bench]
 #[ignore]
 fn last_price_lazy_static_ref(bencher: &mut test::Bencher) {
@@ -215,6 +220,7 @@ fn last_price_lazy_static_ref(bencher: &mut test::Bencher) {
     });
 }
 
+#[cfg(not)]
 #[bench]
 #[ignore]
 /*

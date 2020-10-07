@@ -21,7 +21,7 @@ async fn test_post_form() {
     println!("response = {:#?}", resp);
 }
 
-#[actix_rt::main]
+#[actix_web::main]
 async fn main() {
     test_post_form().await;
 }

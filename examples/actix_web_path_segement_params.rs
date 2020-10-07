@@ -4,7 +4,7 @@ use actix_web::{get, test, web, App, HttpRequest, HttpResponse};
 fn path_segment_param(req: HttpRequest, path: web::Path<(u32,)>) -> HttpResponse {
     // uri: /user/123, path: None, skip: 9, segments: [("id", Segment(6, 9))]
     dbg!(req.clone());
-    println!("path.0 = {}", path.0);
+    println!("path.0 = {}", path.0.0);
     println!("&req.match_info()[\"id\"] = {}", &req.match_info()["id"]);
     println!(
         "req.match_info().query(\"id\") = {}",
@@ -23,7 +23,7 @@ async fn test_path_segment_param() {
     test::call_service(&mut app_service, req).await;
 }
 
-#[actix_rt::main]
+#[actix_web::main]
 async fn main() {
     test_path_segment_param().await;
 }

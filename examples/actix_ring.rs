@@ -9,7 +9,7 @@ fn main() {
 
 或者使用actix_rt的宏
 
-#[actix_rt::main]
+#[actix_web::main]
 async fn main() {
 }
 

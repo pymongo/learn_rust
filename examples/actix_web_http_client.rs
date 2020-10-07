@@ -7,7 +7,7 @@ struct Form {
     user_id: u32,
 }
 
-#[actix_rt::main]
+#[actix_web::main]
 async fn main() {
     http_post_echo_server().await;
 }
