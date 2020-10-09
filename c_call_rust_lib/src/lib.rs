@@ -56,3 +56,61 @@ pub struct Point {
 pub extern "C" fn print_point(point: Point) {
     dbg!(point);
 }
+
+use std::collections::HashMap;
+pub struct Map(HashMap<c_int, c_int>);
+
+impl Map {
+    fn new() -> Self {
+        Self(HashMap::new())
+    }
+
+    fn insert(&mut self, key: c_int, value: c_int) {
+        self.0.insert(key, value);
+    }
+
+    fn get(&self, key: c_int) -> c_int {
+        return if let Some(&val) = self.0.get(&key) {
+            val
+        } else {
+            c_int::from(-1)
+        };
+    }
+}
+
+// Rust:Box<T> -> C:opaque type(不透明数据类型)
+#[no_mangle]
+pub extern "C" fn map_new() -> *mut Map {
+    // Map::new() as *mut Map
+    Box::into_raw(Box::new(Map::new()))
+}
+
+#[no_mangle]
+pub extern "C" fn map_insert(map: *mut Map, k: c_int, v: c_int) {
+    if map.is_null() {
+        return;
+    }
+    let map_deref = unsafe {
+        &mut *map
+    };
+    map_deref.insert(k, v);
+}
+
+#[no_mangle]
+pub extern "C" fn map_get(map: *const Map, k: c_int) -> c_int {
+    if map.is_null() {
+        return c_int::from(-1);
+    }
+    let map_deref = unsafe {
+        &*map
+    };
+    map_deref.get(k)
+}
+
+#[no_mangle]
+pub extern "C" fn map_free(map: *mut Map) {
+    if map.is_null() {
+        return;
+    }
+    Box::from(map);
+}
