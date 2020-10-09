@@ -1,5 +1,4 @@
-#![feature(const_generics)]
-
+#![feature(const_generics, const_fn, const_in_array_repeat_expressions)]
 use std::mem::MaybeUninit;
 
 /**
@@ -8,7 +7,18 @@ use std::mem::MaybeUninit;
 */
 struct Array<T, const N: usize> {
     items: [MaybeUninit<T>; N],
-    length: usize
+    length: usize,
+}
+
+trait ArrayLen {
+    fn len(&self) -> usize;
+}
+
+impl<T, const N: usize> ArrayLen for Array<T, { N }> {
+    #[inline]
+    fn len(&self) -> usize {
+        self.length
+    }
 }
 
 /**
@@ -17,20 +27,21 @@ struct Array<T, const N: usize> {
 > Syntactically we may distinguish these expressions with braces
 两个常量表达式的typechecking是T-lang团队的主要问题，目前{N+1}和{1+N}两个常量泛型长度会不一样
 */
-impl<T, const N: usize> Array<T, {N}> {
-    fn new() -> Self {
-        // Self {
-        //     items: [MaybeUninit<T>; N],
-        //     length: N
-        // }
-        todo!("")
+impl<T: Copy, const N: usize> Array<T, { N }> {
+    const fn new() -> Self {
+        Self {
+            items: [MaybeUninit::uninit(); N],
+            length: 0,
+        }
+    }
+
+    #[inline]
+    const fn capacity(&self) -> usize {
+        N
     }
 }
 
 fn main() {
-    // fn foo() -> impl ToString {
-    //     "Hello, world!"
-    // }
-    // let _: &str = foo();
-    // let a: Array<bool, 1> = Array::new();
+    let visited: Array<bool, 8> = Array::new();
+    dbg!(visited.len(), visited.capacity());
 }

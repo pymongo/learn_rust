@@ -1,4 +1,13 @@
+#![feature(array_chunks)]
 use itertools::Itertools;
+
+#[test]
+fn generic_const_api_array_chunks() {
+    let data = [1, 2, 3, 4, 5, 6];
+    // 分割数组，每组计算完之后再求和
+    let sum = data.array_chunks().map(|&[a1, a2]| a1 * a2).sum::<i32>();
+    assert_eq!(sum, (1 * 2) + (3 * 4) + (5 * 6));
+}
 
 fn main() {
     let data = ["1", "22", "4444", "666666", "999999999"];
