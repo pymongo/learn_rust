@@ -2,7 +2,7 @@
 struct CommitInfo {
     hash: String,
     date: String,
-    message: String
+    message: String,
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -19,5 +19,19 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // println!("cargo:rustc-env={}={}", "LAST_COMMIT_HASH", last_commit.hash);
     // println!("cargo:rustc-env={}={}", "LAST_COMMIT_DATE", last_commit.date);
     // println!("cargo:rustc-env={}={}", "LAST_COMMIT_MESSAGE", last_commit.message);
+    Ok(())
+}
+
+#[test]
+fn process_pipe() -> Result<(), Box<dyn std::error::Error>> {
+    let process = std::process::Command::new("ls")
+        .arg("-l")
+        .stdout(std::process::Stdio::piped())
+        .spawn()?;
+    let pipe_grep_res = std::process::Command::new("grep")
+        .arg("README.md")
+        .stdin(process.stdout.unwrap())
+        .output()?;
+    println!("{}", String::from_utf8(pipe_grep_res.stdout)?);
     Ok(())
 }
