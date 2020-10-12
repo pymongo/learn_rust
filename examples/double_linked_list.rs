@@ -23,7 +23,7 @@ struct List<T> {
     tail: Node<T>,
 }
 
-// impl List<T> {
+// impl<T> List<T> {
 //     fn new(dummy_val: T) -> Self {
 //         let mut head = Node::new(dummy_val);
 //         let mut tail = Node::new(dummy_val);
@@ -37,5 +37,5 @@ struct List<T> {
 // }
 
 fn main() {
-    let mut head: Node<i32> = Node::new(-1);
+    let _head: Node<i32> = Node::new(-1);
 }

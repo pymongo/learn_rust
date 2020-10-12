@@ -1,12 +1,19 @@
-use std::process::Command;
+#[derive(serde::Deserialize, Debug)]
+struct CommitInfo {
+    hash: String,
+    date: String,
+    message: String
+}
 
-fn main() {
-    let mut cmd = Command::new("df");
-    cmd.arg("-h");
-    match cmd.output() {
-        Ok(output) => unsafe {
-            println!("{}", String::from_utf8_unchecked(output.stdout));
-        },
-        Err(e) => println!("{}", e),
-    }
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let cmd_res = std::process::Command::new("git")
+        .arg("log")
+        .arg("-1")
+        .arg("--pretty=format:hash=\"%h\"\ndate=\"%ad\"\nmessage=\"%s\"")
+        .env("DATABASE_URL", "null")
+        .output()?;
+    let last_commit_str = String::from_utf8(cmd_res.stdout)?;
+    let last_commit: CommitInfo = toml::de::from_str(&last_commit_str)?;
+    dbg!(last_commit);
+    Ok(())
 }

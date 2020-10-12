@@ -22,6 +22,4 @@ fn main() {
     let decode_str = decode_gzip_bytes_to_str(gzip_bytes);
     println!("{}", decode_str);
     assert_eq!(decode_str.as_str(), s);
-
-    use std::collections::BinaryHeap;
 }
