@@ -11,26 +11,38 @@ members = [
 ]
 
 [dev-dependencies]
+# async runtime relative creates
 actix = "*"
+actix-codec = "*"
 actix-web = "*"
-rand = "*"
+actix-utils = "1.0.3"
+futures = "*"
+tide = "*"
+tokio = { version = "*", features = ["macros"] }
+async-std = "*"
+
+# http client creates
+reqwest = { version = "*", features = ["json"] }
+awc = "*"
+# openssl = "*"
+hyper = "*" # support proxy
+# hyper-tls = "*"
+# isahc = "*" # fastest? client use libcurl, support proxy, best http_client for rocket
+
 chrono = "*"
-md-5 = "*"
 rust_decimal = "*"
 bigdecimal = { version="*", features = ["serde"] }
-flate2 = "*" # Rust语言主要作者alexcrichton开发的一个gzip库
-tokio = { version = "*", features = ["macros"] }
-reqwest = { version = "*", features = ["json"] }
+num-bigint = "*"
+
 serde = { version = "*", features = ["derive"] }
+serde_repr = "*"
 serde_json = "*"
-itertools = "*"
-# dependencies for actix_web_stream_response
-bytes = "*"
-actix-utils = "1.0.3"
-# dependencies for actix_websocket_client
-awc = "*" # actix_web_client
-actix-codec = "*"
-futures = "*"
 toml = "*"
-hyper = "*"
-hyper-tls = "*"
+# other
+lazy_static = "*"
+regex = "*"
+itertools = "*"
+rand = "*"
+bytes = "*"
+md-5 = "*"
+flate2 = "*" # gzip lib by rust-lang

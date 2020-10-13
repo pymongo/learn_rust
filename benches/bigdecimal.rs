@@ -201,13 +201,11 @@ fn two_mul_both_ref(bencher: &mut test::Bencher) {
 // ========================================
 
 //////////////////// 项目中的last_price比较 ////////////////////
-#[cfg(not)]
 lazy_static::lazy_static! {
   static ref MAX_RATIO: BigDecimal = BigDecimal::from_str("1.1").unwrap();
   static ref MIN_RATIO: BigDecimal = BigDecimal::from_str("0.9").unwrap();
 }
 
-#[cfg(not)]
 #[bench]
 #[ignore]
 fn last_price_lazy_static_ref(bencher: &mut test::Bencher) {
@@ -220,7 +218,6 @@ fn last_price_lazy_static_ref(bencher: &mut test::Bencher) {
     });
 }
 
-#[cfg(not)]
 #[bench]
 #[ignore]
 /*

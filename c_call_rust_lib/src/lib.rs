@@ -1,5 +1,5 @@
-use std::os::raw::{c_char, c_int, c_uint};
 use std::ffi::{CStr, CString};
+use std::os::raw::{c_char, c_int, c_uint};
 
 #[no_mangle]
 pub extern "C" fn p() {
@@ -9,9 +9,7 @@ pub extern "C" fn p() {
 #[no_mangle]
 pub extern "C" fn hello(name: *const c_char) {
     assert!(!name.is_null());
-    let c_str = unsafe {
-        CStr::from_ptr(name)
-    };
+    let c_str = unsafe { CStr::from_ptr(name) };
     println!("hello {:?}", c_str);
 }
 
@@ -38,9 +36,7 @@ pub extern "C" fn sum_of_positive(arr: *const c_int, len: c_uint) -> c_int {
     if arr.is_null() {
         return c_int::from(-1);
     }
-    let nums = unsafe {
-        std::slice::from_raw_parts(arr, len as usize)
-    };
+    let nums = unsafe { std::slice::from_raw_parts(arr, len as usize) };
     let sum: i32 = nums.iter().filter(|&x| x.is_positive()).sum();
     c_int::from(sum)
 }
@@ -90,9 +86,7 @@ pub extern "C" fn map_insert(map: *mut Map, k: c_int, v: c_int) {
     if map.is_null() {
         return;
     }
-    let map_deref = unsafe {
-        &mut *map
-    };
+    let map_deref = unsafe { &mut *map };
     map_deref.insert(k, v);
 }
 
@@ -101,9 +95,7 @@ pub extern "C" fn map_get(map: *const Map, k: c_int) -> c_int {
     if map.is_null() {
         return c_int::from(-1);
     }
-    let map_deref = unsafe {
-        &*map
-    };
+    let map_deref = unsafe { &*map };
     map_deref.get(k)
 }
 

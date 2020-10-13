@@ -1,28 +1,25 @@
-// u8指的是uint8
-#[cfg(not)]
-fn need_to_test3() -> u8 {
+const fn need_to_test3() -> u8 {
     3
 }
 
-#[cfg(not)]
-#[cfg(test)] // 仅在测试环境下编译
+#[cfg(test)]
 mod tests {
     #[test]
     #[ignore]
     fn test_1() {
-        assert_eq!(1, 1);
         assert_ne!(1, 2);
     }
 
     #[test]
-    #[should_panic] // 会pass掉panic抛异常的测试用例
+    #[should_panic]
     fn test_2() {
-        panic!("throw/raise my exception");
+        panic!("should_panic");
     }
 
     #[test]
     fn test_3() {
-        // super::能获取到module外面的作用域的函数
+        // super::能获取到module test外面的作用域(也就是crate root)
         assert_eq!(super::need_to_test3(), 3);
+        assert_eq!(crate::need_to_test3(), 3);
     }
 }

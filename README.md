@@ -2,7 +2,11 @@
 
 Rust是我的好老师，也是我的知识宝库，每次在Rust的知识宝库中寻宝都能收获到很多快乐
 
-## Rust入门学习资料
+## TODO
+
+- [ ] 自引用类型(self-referential struct)
+
+## Rust入门资料
 
 - [Rust Book猜数字和哲学家进餐问题的项目式教学](https://doc.rust-lang.org/1.0.0/book/dining-philosophers.html)
 - [YouTube上dcode的rust入门教程(42集)](https://www.youtube.com/watch?v=vOMJlQ5B-M0&list=PLVvjrrRCBy2JSHf9tGxGKJ-bYAN_uDCUL)
