@@ -2,7 +2,7 @@ use std::fs::File;
 use std::io::prelude::*;
 
 /**
-```
+```no_run
 // Write to file Example
 let mut write_file = File::create("output.txt").expect("Error");
 // b"" means byte slice
