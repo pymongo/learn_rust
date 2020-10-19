@@ -12,7 +12,7 @@ async fn simple_http_request() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-#[cfg(not)]
+#[cfg(FALSE)]
 // #[tokio::test(core_threads = 1)]
 async fn hyper_https_request() -> Result<(), Box<dyn std::error::Error>> {
     let https_client =

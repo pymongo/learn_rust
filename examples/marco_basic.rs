@@ -75,7 +75,7 @@ macro_rules! get_input_identifier {
 /// define_method!(test);
 /// test();
 /// ```
-#[cfg(not)]
+#[cfg(FALSE)]
 macro_rules! define_method {
     ($method_name:ident) => {
         fn $method_name() {

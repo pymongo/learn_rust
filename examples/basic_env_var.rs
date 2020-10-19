@@ -104,6 +104,7 @@ XPC_FLAGS: 0x0
 XPC_SERVICE_NAME: com.jetbrains.CLion.16628
 __CF_USER_TEXT_ENCODING: 0x1F5:0x0:0x0
 */
+use std::os::unix::io::RawFd;
 
 fn main() {
     // 该代码的效果类似`go env`命令

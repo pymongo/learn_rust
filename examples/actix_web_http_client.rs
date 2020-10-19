@@ -31,7 +31,7 @@ http_client make a https(SSL) request
 openssl = "*" # for examples/http_client https example
 actix-web = { version = "*", features = ["openssl"] }
 */
-#[cfg(not)]
+#[cfg(FALSE)]
 async fn https_ssl_request() {
     const JSON_DATA_URL: &str = "http://jsonplaceholder.typicode.com/posts/1";
     use actix_web::client::Connector;

@@ -29,7 +29,7 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-#[cfg(not)]
+#[cfg(FALSE)]
 pub fn deserialize_json_str() {
     let res = serde_json::from_str(r#"
     {

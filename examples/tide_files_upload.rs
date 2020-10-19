@@ -12,6 +12,7 @@ const UPLOAD_PAGE_HTML: &str = r#"<html>
 fn main() -> tide::Result<()> {
     tide::log::start();
     tide::log::info!("server_ip: {}", get_server_ip().unwrap());
+
     futures::executor::block_on(async {
         let mut app = tide::new();
         app.at("/").get(handle_get_index).post(handle_post_files);
