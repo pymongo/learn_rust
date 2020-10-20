@@ -11,6 +11,8 @@ members = [
 ]
 
 [dev-dependencies]
+libc = "*"
+nix = "*"
 # async runtime relative creates
 actix = "*"
 actix-codec = "*"

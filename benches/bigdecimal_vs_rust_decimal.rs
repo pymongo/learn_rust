@@ -2,10 +2,10 @@
 extern crate test;
 // cargo +nightly bench --bench bigdecimal
 
-use rust_decimal::Decimal;
-use rust_decimal::RoundingStrategy::RoundHalfUp;
 use bigdecimal::{BigDecimal, One, Signed, ToPrimitive, Zero};
 use num_bigint::BigInt;
+use rust_decimal::Decimal;
+use rust_decimal::RoundingStrategy::RoundHalfUp;
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 

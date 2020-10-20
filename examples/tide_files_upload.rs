@@ -21,7 +21,7 @@ fn main() -> tide::Result<()> {
     })
 }
 
-fn get_server_ip() -> Result<String, Box<dyn std::error::Error>>{
+fn get_server_ip() -> Result<String, Box<dyn std::error::Error>> {
     let ifconfig = std::process::Command::new("ifconfig")
         .stdout(std::process::Stdio::piped())
         .spawn()?;
@@ -46,7 +46,11 @@ async fn handle_get_index(_: tide::Request<()>) -> tide::Result {
 async fn handle_post_files(mut req: tide::Request<()>) -> tide::Result {
     dbg!(&req);
     let path: String = req.param("file")?;
-    let mut file = async_std::fs::OpenOptions::new().create(true).write(true).open(path).await?;
+    let mut file = async_std::fs::OpenOptions::new()
+        .create(true)
+        .write(true)
+        .open(path)
+        .await?;
     async_std::io::copy(&mut req, &mut file).await?;
     Ok(tide::Redirect::temporary("/").into())
 }

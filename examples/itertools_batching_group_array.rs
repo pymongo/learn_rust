@@ -6,6 +6,7 @@ fn generic_const_api_array_chunks() {
     let data = [1, 2, 3, 4, 5, 6];
     // 分割数组，每组计算完之后再求和
     let sum = data.array_chunks().map(|&[a1, a2]| a1 * a2).sum::<i32>();
+    // FIXME let sum = data.array_chunks().map(std::ops::Mul::mul).sum::<i32>();
     assert_eq!(sum, (1 * 2) + (3 * 4) + (5 * 6));
 }
 

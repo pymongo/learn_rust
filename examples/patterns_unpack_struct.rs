@@ -67,14 +67,14 @@ fn is_adult(age: u8) -> bool {
         60..100 => {
             println!("older than 60");
             true
-        },
-        _ => true
+        }
+        _ => true,
     }
 }
 
 use std::collections::HashSet;
 struct WsChannel {
-    subscribe_list: Option<HashSet<String>>
+    subscribe_list: Option<HashSet<String>>,
 }
 
 /**
@@ -85,7 +85,9 @@ var_name是一个变量名(ident)，只有&Type这样引用符号+类型的写�
 在let Some()的括号内只能写变量名信息，不能写类型，所以也不能想当然的指定下类型 let Some(var_name: &type_name)
 */
 fn test_struct_ws_channel() {
-    let params = WsChannel { subscribe_list: Some(HashSet::new()) };
+    let params = WsChannel {
+        subscribe_list: Some(HashSet::new()),
+    };
     let params_ref = &params;
     // 稍微复杂点的struct ref，对某个option成员进行unwrap，Rust的自动加ref和自动解引用就不好使了，需要手动使用ref pattern
     // If a binding pattern does not explicitly have ref, ref mut, or mut, then it uses the default binding mode to determine how the variable is bound. The default binding mode starts in "move" mode which uses move semantics

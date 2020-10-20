@@ -1,4 +1,4 @@
-#![allow(incomplete_features)]
+#![allow(incomplete_features, dead_coe)]
 #![feature(const_generics, const_fn, const_in_array_repeat_expressions)]
 use std::mem::MaybeUninit;
 

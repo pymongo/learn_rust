@@ -31,14 +31,16 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 #[cfg(FALSE)]
 pub fn deserialize_json_str() {
-    let res = serde_json::from_str(r#"
+    let res = serde_json::from_str(
+        r#"
     {
         "userId": 1,
         "id": 1,
         "title": "reprehenderit",
         "body": "quia et susc equunturrepre"
     }
-    "#);
+    "#,
+    );
     if res.is_ok() {
         let json_value: serde_json::Value = res.unwrap();
         // let json_value: Post = res.unwrap();
