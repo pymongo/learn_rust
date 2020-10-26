@@ -15,7 +15,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         match guess.cmp(&secret_number) {
             std::cmp::Ordering::Less => println!("Too small!"),
             std::cmp::Ordering::Greater => println!("Too big!"),
-            std::cmp::Ordering::Equal => break
+            std::cmp::Ordering::Equal => break,
         }
     }
     println!("You guess is correct. You win!");

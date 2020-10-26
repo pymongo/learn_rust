@@ -1,4 +1,7 @@
-use std::sync::{Arc, Mutex, atomic::{AtomicU8, Ordering}};
+use std::sync::{
+    atomic::{AtomicU8, Ordering},
+    Arc, Mutex,
+};
 
 static PHILOSOPHER_INDEX: AtomicU8 = AtomicU8::new(0);
 

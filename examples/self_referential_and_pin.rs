@@ -43,7 +43,7 @@ struct GoodSelfReferential {
     data: String,
     ptr: *const String,
     /// This makes our type `!Unpin`
-    _exclamation_mark_unpin: std::marker::PhantomPinned
+    _exclamation_mark_unpin: std::marker::PhantomPinned,
 }
 
 impl GoodSelfReferential {
@@ -51,7 +51,7 @@ impl GoodSelfReferential {
         let mut this = Self {
             data: s.to_string(),
             ptr: std::ptr::null(),
-            _exclamation_mark_unpin: std::marker::PhantomPinned
+            _exclamation_mark_unpin: std::marker::PhantomPinned,
         };
         // FIXME 错误示例，应让Self被Pin以后再初始化self.ptr，才能指向Pin的内存地址
         this.ptr = &this.data as *const String;
@@ -63,7 +63,7 @@ impl GoodSelfReferential {
         let this = Self {
             data: s.to_string(),
             ptr: std::ptr::null(),
-            _exclamation_mark_unpin: std::marker::PhantomPinned
+            _exclamation_mark_unpin: std::marker::PhantomPinned,
         };
         // 先装入Pin中再初始化ptr才能保证ptr指向了正确的data
         let mut boxed = Box::pin(this);
