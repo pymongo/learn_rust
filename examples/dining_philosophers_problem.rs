@@ -1,17 +1,18 @@
-use std::sync::{Arc, Mutex};
-use std::thread;
+use std::sync::{Arc, Mutex, atomic::{AtomicU8, Ordering}};
+
+static PHILOSOPHER_INDEX: AtomicU8 = AtomicU8::new(0);
 
 struct Philosopher {
     name: String,
     left: usize,
-    // usize, uint_32
     right: usize, // left, right指的是哲学家的左右手在餐桌的几号叉子上
 }
 
 impl Philosopher {
-    fn new(name: &str, left: usize, right: usize) -> Philosopher {
+    fn new(left: usize, right: usize) -> Philosopher {
+        let index = PHILOSOPHER_INDEX.fetch_add(1, Ordering::SeqCst);
         Philosopher {
-            name: name.to_string(),
+            name: format!("philosopher_{}", index),
             left,
             right,
         }
@@ -27,16 +28,12 @@ impl Philosopher {
         );
 
         println!("{} is eating.", self.name);
-
-        thread::sleep(std::time::Duration::from_millis(1000));
-
+        std::thread::sleep(std::time::Duration::from_millis(500));
         println!("{} is done eating.", self.name);
     }
 }
 
-// 餐桌
 struct Table {
-    // Mutex类似Java的synchronized，线程锁
     // We use an empty tuple, (), inside the mutex, since we’re not actually going to use the value, just hold onto it.
     forks: Vec<Mutex<()>>,
 }
@@ -61,11 +58,11 @@ fn main() {
     });
 
     let philosophers = vec![
-        Philosopher::new("Philosopher_1", 0, 1),
-        Philosopher::new("Philosopher_2", 1, 2),
-        Philosopher::new("Philosopher_3", 2, 3),
-        Philosopher::new("Philosopher_4", 3, 4),
-        Philosopher::new("Philosopher_5", 0, 4),
+        Philosopher::new(0, 1),
+        Philosopher::new(1, 2),
+        Philosopher::new(2, 3),
+        Philosopher::new(3, 4),
+        Philosopher::new(0, 4),
     ];
 
     let handlers: Vec<_> = philosophers
@@ -75,7 +72,7 @@ fn main() {
             // 简单来说通过克隆，复制一份餐桌的5个叉子的应用，当线程结束时，把这5个新的叉子引用释放掉
             // You’ll notice we can introduce a new binding to table here, and it will shadow the old one.
             let table = table.clone();
-            thread::spawn(move || {
+            std::thread::spawn(move || {
                 p.eat(&table);
             })
         })

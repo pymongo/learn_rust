@@ -39,6 +39,14 @@ impl Handler<Msg> for MyActor {
     }
 }
 
+// `Rc::new();`没事，`let x=Rc::new()`可能会报错没有实现Send
+// async fn foo() {
+//     let x = std::rc::Rc::new(0i32);
+//     bar().await;
+// }
+//
+// async fn bar() {}
+
 fn main() {
     let system = System::new("test");
 

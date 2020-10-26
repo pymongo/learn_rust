@@ -36,13 +36,14 @@ assert_eq!(b, 2);
 再详细解释下面这段代码是如何逐层unpack ast.data, ast=abstract syntax tree
 1. Derive只能以类似Python装饰器的方式加到struct/enum/union上，
    所以第一层`syn::Data::Struct()`将ast.data约束成struct
-2. struct又能分为Named、Unnamed(类似typle)、Unit(空结构体)三种
+2. struct又能分为Named、Unnamed(类似tuple)、Unit(空结构体)三种
    第一层的括号内的syn::DataStruct {}是一种struct unpack写法，这里简称为第二层
    这里第二层的syn::Fields::Named再次把struct限制为Named struct一种
 
 ===
 
 在protobuf中`..`remain wildcard pattern(另一个wildcard pattern是`_`表示match any single val)有填充默认值的作用
+可以用来从其它结构体拷贝一些值
 ```no_run
 let sign_up_req_pb_msg = PBMessage {
     api_type: PBAPIType::SignUp,
