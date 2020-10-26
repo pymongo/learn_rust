@@ -73,11 +73,13 @@ fn main() {
             // You’ll notice we can introduce a new binding to table here, and it will shadow the old one.
             let table = table.clone();
             std::thread::spawn(move || {
+                println!("In std::thread::spawn");
                 p.eat(&table);
             })
         })
         .collect();
 
+    println!("after thread_handlers init");
     for handler in handlers {
         // 多线程
         handler.join().unwrap();
