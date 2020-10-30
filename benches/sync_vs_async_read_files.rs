@@ -29,9 +29,8 @@ fn bench_sync(bencher: &mut test::Bencher) {
 }
 
 async fn read_files() {
-    futures::future::join_all(
-        (0..READ_TIMES).map(|_| async_std::fs::read_to_string(FILE_PATH)),
-    ).await;
+    futures::future::join_all((0..READ_TIMES).map(|_| async_std::fs::read_to_string(FILE_PATH)))
+        .await;
 }
 
 #[bench]
@@ -49,7 +48,6 @@ fn bench_async_tokio_multi_threads(bencher: &mut test::Bencher) {
 fn bench_async_async_std(bencher: &mut test::Bencher) {
     bencher.iter(|| async_std::task::block_on(read_files()));
 }
-
 
 #[bench]
 #[ignore]
@@ -72,7 +70,7 @@ fn test_async_multi_threads_executor() {
         futures::future::join_all(
             (0..READ_TIMES).map(|_| async_std::fs::read_to_string(FILE_PATH)),
         )
-            .await;
+        .await;
     });
     println!("futures::executor::ThreadPool: {:?}", now.elapsed());
     drop(pool);
@@ -82,7 +80,7 @@ fn test_async_multi_threads_executor() {
         futures::future::join_all(
             (0..READ_TIMES).map(|_| async_std::fs::read_to_string(FILE_PATH)),
         )
-            .await;
+        .await;
     });
     println!("tokio::runtime::Runtime: {:?}", now.elapsed());
 }
