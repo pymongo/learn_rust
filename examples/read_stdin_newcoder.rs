@@ -1,8 +1,9 @@
+//! [如何对ACM/牛客网/codeforces的stdin/stdout进行单元测试?](https://github.com/pymongo/leetcode-rust/blob/master/examples/codeforces_4a_watermelon.rs)
 use std::io::BufRead;
 
 fn main() {
     // 注意在IDEA上发送EOF的快捷键是cmd+d
-    let mut input: Vec<String> = vec![];
+    let mut input: Vec<String> = Vec::new();
     for line in std::io::stdin().lock().lines() {
         if let Ok(str) = line {
             input.push(str);

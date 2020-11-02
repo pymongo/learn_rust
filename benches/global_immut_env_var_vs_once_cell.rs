@@ -17,6 +17,8 @@ fn bench_env_var(bencher: &mut test::Bencher) {
     });
 }
 
+use std::collections::LinkedList;
+
 #[bench]
 fn bench_once_cell(bencher: &mut test::Bencher) {
     MARKET_ID.set("btcusdt".to_string()).unwrap();

@@ -20,6 +20,5 @@ mod tests {
     fn test_3() {
         // super::能获取到module test外面的作用域(也就是crate root)
         assert_eq!(super::need_to_test3(), 3);
-        assert_eq!(crate::need_to_test3(), 3);
     }
 }
