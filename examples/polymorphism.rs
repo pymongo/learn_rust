@@ -7,6 +7,7 @@ trait Animal {
         dbg!(std::any::type_name::<Self>());
         dbg!(std::mem::size_of::<&Self>());
         dbg!(std::mem::size_of_val(&self));
+        dbg!(std::mem::align_of::<&Self>());
         // dbg!(std::mem::size_of_val(self));
     }
 }
