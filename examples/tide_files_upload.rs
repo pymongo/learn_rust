@@ -43,9 +43,10 @@ async fn handle_get_index(_: tide::Request<()>) -> tide::Result {
 }
 
 // FIXME not working
+#[cfg(FALSE)]
 async fn handle_post_files(mut req: tide::Request<()>) -> tide::Result {
     dbg!(&req);
-    let path: String = req.param("file")?;
+    let path: String = req.param("file".to_string())?;
     let mut file = async_std::fs::OpenOptions::new()
         .create(true)
         .write(true)

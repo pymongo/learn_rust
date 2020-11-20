@@ -1,4 +1,6 @@
-/* Compile time var
+/*!
+## compile time env_var(build.rs)
+```text
 CARGO: /Users/wuaoxiang/.rustup/toolchains/nightly-x86_64-apple-darwin/bin/cargo
 CARGO_CFG_TARGET_ARCH: x86_64
 CARGO_CFG_TARGET_ENDIAN: little
@@ -57,9 +59,12 @@ VERSIONER_PYTHON_VERSION: 2.7
 XPC_FLAGS: 0x0
 XPC_SERVICE_NAME: com.jetbrains.CLion.5684
 __CF_USER_TEXT_ENCODING: 0x1F6:0x0:0x0
-*/
+```
 
-/* Runtime env var
+---
+
+## runtime env_var
+```text
 Apple_PubSub_Socket_Render: /private/tmp/com.apple.launchd.DQjqUGmxsM/Render
 CARGO: /Users/w/.rustup/toolchains/stable-x86_64-apple-darwin/bin/cargo
 CARGO_HOME: /Users/w/.cargo
@@ -103,11 +108,12 @@ VERSIONER_PYTHON_VERSION: 2.7
 XPC_FLAGS: 0x0
 XPC_SERVICE_NAME: com.jetbrains.CLion.16628
 __CF_USER_TEXT_ENCODING: 0x1F5:0x0:0x0
+```
 */
 use std::os::unix::io::RawFd;
 
+/// 该代码的效果类似`go env`命令
 fn main() {
-    // 该代码的效果类似`go env`命令
     for (key, value) in std::env::vars() {
         println!("{}: {}", key, value);
     }

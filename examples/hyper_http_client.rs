@@ -1,3 +1,4 @@
+#![cfg(not)]
 use bytes::buf::BufExt;
 
 const URL: &str = "https://jsonplaceholder.typicode.com/users/1";
@@ -28,3 +29,4 @@ async fn hyper_https_request() -> Result<(), Box<dyn std::error::Error>> {
 async fn main() {
     simple_http_request().await.unwrap();
 }
+
