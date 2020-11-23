@@ -1,8 +1,12 @@
 #![feature(asm)]
 
 fn main() {
+    let mut register: usize = 1;
     unsafe {
-        asm!("NOP");
+        asm!(
+        "rol {0}, 1",
+        inout(reg) register => register, // or inout(reg) register,
+        );
     }
-    println!("after NOP");
+    assert_eq!(register, 1usize.rotate_left(1));
 }
