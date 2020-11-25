@@ -29,4 +29,3 @@ async fn hyper_https_request() -> Result<(), Box<dyn std::error::Error>> {
 async fn main() {
     simple_http_request().await.unwrap();
 }
-

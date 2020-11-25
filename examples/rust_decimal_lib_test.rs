@@ -2,7 +2,7 @@ use bigdecimal::BigDecimal;
 use rust_decimal::Decimal;
 // use rust_decimal::prelude::FromStr;
 
-use std::mem::{size_of, size_of_val, align_of, align_of_val};
+use std::mem::{align_of, align_of_val, size_of, size_of_val};
 use std::str::FromStr;
 
 fn main() {

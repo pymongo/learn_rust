@@ -8,9 +8,7 @@
 #[cfg(target_os = "unix")]
 fn main() {
     use std::os::unix::io::FromFawFd;
-    let mut f = unsafe {
-        std::fs::File::from_raw_fd(3)
-    };
+    let mut f = unsafe { std::fs::File::from_raw_fd(3) };
 }
 
 #[cfg(target_os = "macos")]

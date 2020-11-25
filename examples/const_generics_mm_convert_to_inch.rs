@@ -8,7 +8,7 @@ struct Length<const F: f64>(f64, PhantomData<dyn LengthType<F>>);
 
 // type Meter = Length<1.0>;
 type Mm = Length<1000.0>;
-type Inch = Length<{1000.0/25.4}>;
+type Inch = Length<{ 1000.0 / 25.4 }>;
 
 impl<const F1: f64> Length<F1> {
     fn new(val: f64) -> Self {
