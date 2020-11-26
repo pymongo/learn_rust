@@ -6,7 +6,6 @@
 //! 719162+1是因为Rust的chrono将去年的12月31日作为第一天，这样下标1就等于1月1日比较方便
 use libc::{c_int, time_t};
 
-/// My gettimeofday syscall warrper
 struct LocalTime {
     timezone_offset_in_seconds: time_t,
 }
