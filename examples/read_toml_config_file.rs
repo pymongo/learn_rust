@@ -12,7 +12,6 @@ const CONFIG_FILE: &str = "examples/read_toml_config_file.toml";
 
 enum AppEnv {
     Production,
-    #[allow(dead_code)]
     Test,
 }
 
@@ -71,7 +70,9 @@ struct RedisClusterConfig {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    println!("env::current_dir() = {:?}", std::env::current_dir()?);
+    let app_env = AppEnv::Test;
+    assert_eq!(std::mem::discriminant(&app_env), std::mem::discriminant(&AppEnv::Test));
+    dbg!(std::env::current_dir()?);
     let config = Config::new()?;
     dbg!(config.database_url(AppEnv::Production));
     dbg!(&config.redis_clusters[0].url);

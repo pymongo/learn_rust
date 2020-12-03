@@ -5,7 +5,6 @@ edition = "2018"
 
 [workspace]
 members = [
-    "rust_call_cpp_static_lib", # 由于macOS big sur升级带来的C++ SDK问题，所以在mac上编译不过
     "c_call_rust_lib"
 ]
 

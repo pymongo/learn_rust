@@ -19,7 +19,7 @@ int map_get(Map* map, int k);
 void map_free(Map* map);
 
 /*
-static  link:
+static link:
 cargo build && gcc main.c ../target/debug/libc_call_rust_lib.a && ./a.out
 dynamic link:
 gcc main.c -Isrc -L ../target/debug/ -lc_call_rust_lib
