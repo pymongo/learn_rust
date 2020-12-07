@@ -4,7 +4,7 @@ require 'ffi'
 
 module MyLib
     extend FFI::Library
-    ffi_lib "../target/debug/libc_call_rust_lib.dylib"
+    ffi_lib "../target/librust.so"
     attach_function :map_new, [], :pointer
     attach_function :map_insert, [:pointer, :int, :int], :int
     attach_function :map_get, [:pointer, :int], :int

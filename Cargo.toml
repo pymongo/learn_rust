@@ -1,12 +1,6 @@
 [package]
-name = "rust_learn"
+name = "learn_rust"
 version = "0.1.0"
-edition = "2018"
-
-[workspace]
-members = [
-    "c_call_rust_lib"
-]
 
 [dev-dependencies]
 libc = "*"
@@ -17,7 +11,7 @@ actix-web = "*"
 actix-utils = "*"
 futures = { version= "*", features = ["thread-pool"] }
 tide = "*"
-tokio = { version = "*", features = ["macros", "rt-multi-thread"] }
+tokio = { version = "0.2", features = ["macros", "rt-threaded"] }
 async-std = "*"
 
 # http client creates

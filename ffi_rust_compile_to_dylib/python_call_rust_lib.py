@@ -7,7 +7,7 @@ class MapPtr(ctypes.Structure):
     pass
 
 
-lib = ctypes.cdll.LoadLibrary("../target/debug/libc_call_rust_lib.dylib")
+lib = ctypes.cdll.LoadLibrary("../target/librust.so")
 lib.map_new.restype = ctypes.POINTER(MapPtr)
 lib.map_insert.argtypes = (ctypes.POINTER(MapPtr), ctypes.c_int, ctypes.c_int)
 lib.map_get.argtypes = (ctypes.POINTER(MapPtr), ctypes.c_int)

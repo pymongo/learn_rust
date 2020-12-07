@@ -1,5 +1,5 @@
 #include <stdio.h>
-void p();
+
 void hello(const char *str);
 char *repeat_hi(int times);
 void free_cstr(const char *str);
@@ -11,7 +11,7 @@ typedef struct {
 } Point;
 void print_point(Point point);
 
-// Rust:Box<T> -> C:opaque type(不透明数据类型)
+// C use opaque type(不透明数据类型) to bind Rust:Box<T>
 typedef struct OpaqueType Map;
 Map* map_new();
 void map_insert(Map* map, int k, int v);
