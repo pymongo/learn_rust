@@ -1,6 +1,6 @@
 build:
-    rustc -o ../librust.so lib.rs --crate-type=dylib
+	rustc -o ../target/librust.so lib.rs --crate-type=dylib
+#.ONESHELL:
 run: build
-    gcc -o ../target/executable main.rs ../target/librust.so
-    ldd ../executable
-    ../executable
+	gcc -o ../target/executable main.c ../target/librust.so
+	../target/executable
