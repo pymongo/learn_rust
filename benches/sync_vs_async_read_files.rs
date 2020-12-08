@@ -61,7 +61,7 @@ fn bench_async_futures_multi_threads_executor(bencher: &mut test::Bencher) {
 futures::executor::ThreadPool: 64.484µs
 tokio::runtime::Runtime: 542.913µs
 */
-// #[test]
+// #[test] FIXME 会卡死
 #[cfg(FALSE)]
 fn test_async_multi_threads_executor() {
     let pool = futures::executor::ThreadPool::new().unwrap();

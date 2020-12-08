@@ -2,7 +2,6 @@
 extern crate test;
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
-// cargo +nightly bench --bench deserialize_string_enum_u8_bool
 
 #[derive(Serialize, Deserialize)]
 struct BoolFieldForm {

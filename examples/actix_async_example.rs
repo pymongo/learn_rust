@@ -1,3 +1,5 @@
+extern crate actix;
+
 use actix::{Actor, AsyncContext, Context, Handler, Message, System, WrapFuture};
 
 struct MyActor;
@@ -44,7 +46,6 @@ impl Handler<Msg> for MyActor {
 //     let x = std::rc::Rc::new(0i32);
 //     bar().await;
 // }
-//
 // async fn bar() {}
 
 fn main() {

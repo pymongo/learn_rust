@@ -1,4 +1,3 @@
-#![cfg(not)]
 use bytes::buf::BufExt;
 
 const URL: &str = "https://jsonplaceholder.typicode.com/users/1";
@@ -13,8 +12,6 @@ async fn simple_http_request() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-#[cfg(FALSE)]
-// #[tokio::test(core_threads = 1)]
 async fn hyper_https_request() -> Result<(), Box<dyn std::error::Error>> {
     let https_client =
         hyper::Client::builder().build::<_, hyper::Body>(hyper_tls::HttpsConnector::new());
@@ -28,4 +25,5 @@ async fn hyper_https_request() -> Result<(), Box<dyn std::error::Error>> {
 #[tokio::main]
 async fn main() {
     simple_http_request().await.unwrap();
+    hyper_https_request().await.unwrap();
 }

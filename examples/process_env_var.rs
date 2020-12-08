@@ -78,7 +78,6 @@ _: /home/pi/.cargo/bin/cargo
 CARGO: /home/pi/.rustup/toolchains/nightly-armv7-unknown-linux-gnueabihf/bin/cargo
 CARGO_MANIFEST_DIR: /home/pi/workspace/temp_projects/print_env
 CARGO_PKG_NAME: print_env
-CARGO_PKG_VERSION_PRE:
 DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
 NO_AT_BRIDGE: 1
 OLDPWD: /
@@ -89,7 +88,6 @@ SHLVL: 1
 _: /home/pi/.cargo/bin/cargo
 ```
 */
-use std::os::unix::io::RawFd;
 
 /// 该代码的效果类似`go env`命令
 fn main() {

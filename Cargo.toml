@@ -1,6 +1,10 @@
 [package]
 name = "learn_rust"
-version = "0.1.0"
+version = "0.0.2"
+edition = "2018"
+
+#[dependencies]
+#bigdecimal = { version="*", features = ["serde"] }
 
 [dev-dependencies]
 libc = "*"
@@ -19,7 +23,7 @@ reqwest = { version = "*", features = ["json"] }
 awc = "*"
 # openssl = "*"
 hyper = "*" # support proxy
-# hyper-tls = "*"
+hyper-tls = "*"
 # isahc = "*" # fastest? client use libcurl, support proxy, best http_client for rocket
 
 chrono = "*"
@@ -32,8 +36,6 @@ serde_repr = "*"
 serde_json = "*"
 toml = "*"
 # other
-#faster = "*" # easy use simd library(faster library compile failed)
-lazy_static = "*"
 regex = "*"
 itertools = "*"
 rand = "*"

@@ -4,7 +4,7 @@
 //! https://unix.stackexchange.com/questions/149858/convert-a-number-of-seconds-elapsed-to-date-from-arbitrary-start-date
 //! chrono为了更方便的计算日期以及闰年的影响，要将unix时间戳距离1970年1日1日的日数偏移到距离0001年1月1日的日数
 //! 719162+1是因为Rust的chrono将去年的12月31日作为第一天，这样下标1就等于1月1日比较方便
-use libc::{c_int, time_t};
+use libc::time_t;
 
 struct LocalTime {
     timezone_offset_in_seconds: time_t,
@@ -24,6 +24,7 @@ impl LocalTime {
         }
         dbg!(out.tm_gmtoff, out.tm_isdst, out.tm_hour);
 
+        /*
         let tz_dsttime;
         if out.tm_isdst.is_negative() {
             println!("daylight_saving_time information is not available");
@@ -35,6 +36,7 @@ impl LocalTime {
             println!("daylight_saving_time={} is in effect", out.tm_isdst);
             tz_dsttime = out.tm_isdst;
         }
+        */
 
         Self {
             timezone_offset_in_seconds: out.tm_gmtoff,

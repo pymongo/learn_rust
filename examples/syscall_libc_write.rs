@@ -1,4 +1,13 @@
-// #![no_std]
+/**
+#include <unistd.h> // write
+#include <string.h> // strlen
+
+int main() {
+    const char* text = "Hello World\n";
+    ssize_t write_len = write(1, text, strlen(text));
+    return 0;
+}
+*/
 
 fn print(bytes: &[u8]) {
     const STDOUT: i32 = 1;

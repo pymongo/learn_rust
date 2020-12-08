@@ -9,6 +9,26 @@ use rust_decimal::RoundingStrategy::RoundHalfUp;
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 
+#[test]
+fn compare_memory_align() {
+    let rust_decimal_a = Decimal::from_str("3.1415926").unwrap();
+    let bigdecimal_a = BigDecimal::from_str("3.1415926").unwrap();
+    dbg!(std::mem::size_of::<Decimal>());
+    dbg!(std::mem::size_of_val(&rust_decimal_a));
+    dbg!(std::mem::align_of::<Decimal>());
+    dbg!(std::mem::align_of_val(&rust_decimal_a));
+    dbg!(std::mem::size_of::<BigDecimal>());
+    dbg!(std::mem::size_of_val(&bigdecimal_a));
+    dbg!(std::mem::align_of::<BigDecimal>());
+    dbg!(std::mem::align_of_val(&bigdecimal_a));
+    let json_data = serde_json::json!({ "key": bigdecimal_a });
+    // 默认是序列化为String，可以设置序列化为float
+    dbg!(json_data);
+    let a = Decimal::from_str("9.86960406437476").unwrap();
+    let b = Decimal::from_str("3.1415926").unwrap();
+    dbg!(a / b);
+}
+
 #[bench]
 fn bigdecimal_mul(bencher: &mut test::Bencher) {
     bencher.iter(|| {

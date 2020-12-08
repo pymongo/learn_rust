@@ -18,13 +18,6 @@ CPU硬件的API atomic性能要比操作系统层面的信号量内存壁垒API�
 ## 逐行遍历二维数组才能「命中CPU缓存」
 */
 
-/**
-62 |                 use crate::arch::x86_64::_mm_movemask_pi8;
-   |                     ^^^^^^^^^^^^^^^^^^^^^----------------
-   |                     |                    |
-   |                     |                    help: a similar name exists in the module: `_mm_movemask_epi8`
-   |                     no `_mm_movemask_pi8` in `arch::x86_64`
-*/
 fn main() {
     // FIXME faster库编译失败
     // use faster::*;
