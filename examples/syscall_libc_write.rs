@@ -8,6 +8,14 @@ int main() {
     return 0;
 }
 */
+#[allow(non_camel_case_types)]
+type size_t = usize;
+#[allow(non_camel_case_types)]
+type ssize_t = isize;
+
+extern "C" {
+    fn write(fd: std::os::raw::c_int, buf: *const std::ffi::c_void, count: size_t) -> ssize_t;
+}
 
 fn print(bytes: &[u8]) {
     const STDOUT: i32 = 1;
@@ -15,15 +23,10 @@ fn print(bytes: &[u8]) {
     unsafe {
         // system call `write` in #include <unistd.h>
         // ssize_t write(int fd, const void *buf, size_t count);
-        let write_len = libc::write(STDOUT, bytes_c_void_ptr, bytes.len());
+        let write_len = write(STDOUT, bytes_c_void_ptr, bytes.len());
         assert_eq!(write_len, bytes.len() as isize);
     }
 }
-
-// #[panic_handler]
-// fn my_panic(_info: &core::panic::PanicInfo) -> ! {
-//     loop {}
-// }
 
 fn main() {
     print(b"Hello World!\n\0");

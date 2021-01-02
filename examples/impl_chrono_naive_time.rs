@@ -4,7 +4,33 @@
 //! https://unix.stackexchange.com/questions/149858/convert-a-number-of-seconds-elapsed-to-date-from-arbitrary-start-date
 //! chrono为了更方便的计算日期以及闰年的影响，要将unix时间戳距离1970年1日1日的日数偏移到距离0001年1月1日的日数
 //! 719162+1是因为Rust的chrono将去年的12月31日作为第一天，这样下标1就等于1月1日比较方便
-use libc::time_t;
+use std::os::raw::{c_char, c_int, c_long};
+
+#[allow(non_camel_case_types)]
+type time_t = isize;
+
+#[allow(non_snake_case)]
+#[repr(C)]
+struct tm {
+    tm_sec: c_int,
+    tm_min: c_int,
+    tm_hour: c_int,
+    tm_mday: c_int,
+    tm_mon: c_int,
+    tm_year: c_int,
+    tm_wday: c_int,
+    tm_yday: c_int,
+    tm_isdst: c_int,
+    tm_gmtoff: c_long,
+    // mac:   tm_zone: *mut c_char
+    // linux: tm_zone: *const c_char
+    tm_zone: *mut c_char,
+}
+
+extern "C" {
+    fn localtime_r(time_p: *const time_t, result: *mut tm) -> *mut tm;
+    fn time(time: *mut time_t) -> time_t;
+}
 
 struct LocalTime {
     timezone_offset_in_seconds: time_t,
@@ -12,12 +38,12 @@ struct LocalTime {
 
 impl LocalTime {
     fn new() -> Self {
-        let mut out: libc::tm = unsafe { std::mem::zeroed() };
+        let mut out: tm = unsafe { std::mem::zeroed() };
         // get localtime timezone and daylight_saving_time information with 0 seconds
         unsafe {
             // time_t is i64 in common 64 bit OS, but time_t is i32 in raspberrypi
             let time_zero: time_t = 0;
-            if libc::localtime_r(&time_zero as *const time_t, &mut out).is_null() {
+            if localtime_r(&time_zero as *const time_t, &mut out).is_null() {
                 panic!("error in localtime_r system call");
             }
             dbg!(std::ffi::CStr::from_ptr(out.tm_zone));
@@ -39,7 +65,7 @@ impl LocalTime {
         */
 
         Self {
-            timezone_offset_in_seconds: out.tm_gmtoff,
+            timezone_offset_in_seconds: out.tm_gmtoff as time_t,
         }
     }
 
@@ -49,7 +75,7 @@ impl LocalTime {
     fn now_hms(&self) -> (time_t, time_t, time_t) {
         let mut now_sec: time_t = unsafe { std::mem::zeroed() };
         unsafe {
-            libc::time(&mut now_sec as *mut time_t);
+            time(&mut now_sec as *mut _);
         }
         now_sec += self.timezone_offset_in_seconds;
         let today_seconds = now_sec % (24 * 3600);

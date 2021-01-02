@@ -71,7 +71,10 @@ struct RedisClusterConfig {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let app_env = AppEnv::Test;
-    assert_eq!(std::mem::discriminant(&app_env), std::mem::discriminant(&AppEnv::Test));
+    assert_eq!(
+        std::mem::discriminant(&app_env),
+        std::mem::discriminant(&AppEnv::Test)
+    );
     dbg!(std::env::current_dir()?);
     let config = Config::new()?;
     dbg!(config.database_url(AppEnv::Production));
