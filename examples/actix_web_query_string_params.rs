@@ -9,7 +9,7 @@ struct User {
 /// # 注意query_string/web::Query的params 跟 match_info/web::Path的params 是两回事
 ///
 /// ## match_info/web::Path的使用场景：
-/// 见examples/actix_web_path_segement_params.rs
+/// 见examples/actix_web_path_segment_params.rs
 ///
 /// ## query_string/web::Query的使用场景：
 /// 见本文件
@@ -33,6 +33,6 @@ async fn test_query_string_params() {
 }
 
 #[actix_web::main]
-async fn main() {
+async fn main()  {
     test_query_string_params().await;
 }

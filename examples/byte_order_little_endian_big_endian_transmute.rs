@@ -20,3 +20,28 @@ fn main() {
     assert_eq!(i32::from_be(transmute_res), POSTGRES_PROTOCOL_VERSION_3);
     assert_eq!(i32::from_be_bytes(RAW_BYTES), POSTGRES_PROTOCOL_VERSION_3);
 }
+
+#[test]
+fn test_i32_to_bool() {
+    #[derive(Debug, Copy, Clone)]
+    struct A {
+        a: u16,
+        b: u8,
+        c: bool,
+    }
+    let a = {
+        #[derive(Debug, Copy, Clone)]
+        struct B {
+            a: u16,
+            b: u8,
+            c: u8,
+        }
+        let b = B { a: 1, b: 1, c: 2 };
+        unsafe {*(&b as *const B as *const A) }
+    };
+    // 尝试将 Some(a) 改为 a
+    let some_a = Some(a);
+    println!("a: {:#?}", a);
+    println!("some_a: {:#?}", some_a);
+    assert!(some_a.is_none());
+}

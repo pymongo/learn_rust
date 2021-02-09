@@ -14,7 +14,7 @@ actix-web = "*"
 actix-utils = "*"
 futures = { version= "*", features = ["thread-pool"] }
 tide = "*"
-tokio = { version = "0.2", features = ["macros", "rt-threaded"] }
+tokio = { version = "*", features = ["full"] }
 async-std = "*"
 
 # http client creates
