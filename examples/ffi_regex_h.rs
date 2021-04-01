@@ -35,6 +35,7 @@ extern "C" {
     fn regfree(preg: *mut regex_t);
 }
 
+// FIXME segfault
 fn main() {
     unsafe {
         let mut preg: regex_t = std::mem::zeroed();

@@ -1,8 +1,9 @@
+//! 生产环境要么用isahc(基于libcurl.so)，要么用reqwest，像actix_web这种发HTTPS请求还得额外依赖openssl的，或者hyper这样的基本不用
 use hyper::body::Buf;
 
 const URL: &str = "https://jsonplaceholder.typicode.com/users/1";
 
-async fn simple_http_request() -> Result<(), Box<dyn std::error::Error>> {
+async fn hyper_http_request() -> Result<(), Box<dyn std::error::Error>> {
     let res = hyper::Client::new()
         .get(URL.replace("https", "http").parse()?)
         .await?;
@@ -12,6 +13,7 @@ async fn simple_http_request() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
+#[cfg(not)]
 async fn hyper_https_request() -> Result<(), Box<dyn std::error::Error>> {
     let https_client =
         hyper::Client::builder().build::<_, hyper::Body>(hyper_tls::HttpsConnector::new());
@@ -24,6 +26,5 @@ async fn hyper_https_request() -> Result<(), Box<dyn std::error::Error>> {
 
 #[tokio::main]
 async fn main() {
-    simple_http_request().await.unwrap();
-    hyper_https_request().await.unwrap();
+    hyper_http_request().await.unwrap();
 }

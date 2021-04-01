@@ -1,6 +1,6 @@
 [package]
 name = "learn_rust"
-version = "0.0.2"
+version = "0.0.3"
 edition = "2018"
 
 #[dependencies]
@@ -9,33 +9,24 @@ edition = "2018"
 [dev-dependencies]
 # async runtime relative creates
 actix = "*"
-actix-codec = "*"
 actix-web = "*"
-actix-utils = "*"
 futures = { version= "*", features = ["thread-pool"] }
 tide = "*"
-tokio = { version = "*", features = ["macros", "rt-multi-thread"] }
+tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
 async-std = "*"
 
 # http client creates
-reqwest = { version = "*", features = ["json"] }
-awc = "*"
-# openssl = "*"
 hyper = "*" # support proxy
 hyper-tls = "*"
-# isahc = "*" # fastest? client use libcurl, support proxy, best http_client for rocket
-
-chrono = "*"
-rust_decimal = "*"
-bigdecimal = { version="*", features = ["serde"] }
-num-bigint = "*"
 
 serde = { version = "*", features = ["derive"] }
 serde_repr = "*"
 serde_json = "*"
 toml = "*"
-# other
+chrono = "*"
+rust_decimal = "*"
+bigdecimal = { version="*", features = ["serde"] }
+num-bigint = "*"
 itertools = "*"
-bytes = "*"
 md-5 = "*"
 flate2 = "*" # gzip lib by rust-lang
