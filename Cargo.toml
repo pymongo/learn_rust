@@ -14,7 +14,7 @@ actix-web = "*"
 actix-utils = "*"
 futures = { version= "*", features = ["thread-pool"] }
 tide = "*"
-tokio = { version = "*", features = ["full"] }
+tokio = { version = "*", features = ["macros", "rt-multi-thread"] }
 async-std = "*"
 
 # http client creates
@@ -35,9 +35,7 @@ serde_repr = "*"
 serde_json = "*"
 toml = "*"
 # other
-regex = "*"
 itertools = "*"
-rand = "*"
 bytes = "*"
 md-5 = "*"
 flate2 = "*" # gzip lib by rust-lang

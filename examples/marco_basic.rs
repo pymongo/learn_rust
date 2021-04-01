@@ -1,4 +1,4 @@
-/* # use macro to reuse code
+/*! # use macro to reuse code
 学习资料1：https://doc.rust-lang.org/1.7.0/book/macros.html
 学习资料2：https://doc.rust-lang.org/book/ch19-06-macros.html
 

@@ -11,7 +11,6 @@ const UPLOAD_PAGE_HTML: &str = r#"<html>
 // FIXME post file handler not working
 fn main() -> tide::Result<()> {
     tide::log::start();
-    tide::log::info!("server_ip: {}", get_server_ip().unwrap());
 
     futures::executor::block_on(async {
         let mut app = tide::new();
@@ -21,6 +20,7 @@ fn main() -> tide::Result<()> {
     })
 }
 
+#[cfg(not)]
 fn get_server_ip() -> Result<String, Box<dyn std::error::Error>> {
     let ifconfig = std::process::Command::new("ifconfig")
         .stdout(std::process::Stdio::piped())

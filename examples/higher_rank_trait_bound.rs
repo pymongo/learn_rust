@@ -1,4 +1,3 @@
-
 trait A<T> {
     fn a(&self, value: T);
 }
@@ -29,4 +28,3 @@ fn main() {
     let a = Box::new(&usize::MIN);
     f(a);
 }
-

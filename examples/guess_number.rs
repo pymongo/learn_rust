@@ -1,12 +1,9 @@
-use rand::Rng;
+extern crate learn_rust;
 use std::io::BufRead;
 
-const LOWER: u32 = 1;
-const UPPER: u32 = 100;
-
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    println!("Guess the number({}-{})!", LOWER, UPPER);
-    let secret_number = rand::thread_rng().gen_range(LOWER, UPPER);
+    println!("Guess the number(1-100)!");
+    let secret_number = learn_rust::random() as u32 % 100;
     loop {
         println!("\nPlease input your guess:");
         let mut guess_stdin_buf = String::new();

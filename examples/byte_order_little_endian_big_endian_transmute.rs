@@ -37,7 +37,7 @@ fn test_i32_to_bool() {
             c: u8,
         }
         let b = B { a: 1, b: 1, c: 2 };
-        unsafe {*(&b as *const B as *const A) }
+        unsafe { *(&b as *const B as *const A) }
     };
     // 尝试将 Some(a) 改为 a
     let some_a = Some(a);

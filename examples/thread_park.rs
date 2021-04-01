@@ -1,4 +1,3 @@
-// park好像是Unix线程的一个API
 fn main() {
     // 除了阻塞/重启/join等的同步方法，Rust还提供yield_now让线程主动出让当前时间片
     let parked_thread = std::thread::spawn(|| {

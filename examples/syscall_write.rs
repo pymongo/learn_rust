@@ -1,4 +1,4 @@
-/**
+/*!
 #include <unistd.h> // write
 #include <string.h> // strlen
 

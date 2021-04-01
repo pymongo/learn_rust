@@ -1,5 +1,4 @@
 // 此时state相当于全局变量，比mut static更好的是不用unsafe语句了
-#[allow(dead_code)]
 fn outer1() -> impl FnMut() -> bool {
     let mut state = false;
     move || {

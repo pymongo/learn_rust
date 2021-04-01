@@ -33,6 +33,6 @@ async fn test_query_string_params() {
 }
 
 #[actix_web::main]
-async fn main()  {
+async fn main() {
     test_query_string_params().await;
 }

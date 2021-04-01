@@ -18,11 +18,14 @@ MySQL、python、round的round只跟倒数第二位有关
 2.2 如果需要五入是正数，则截断2位后，加上0.01，例如 1.785 => 1.79
 */
 use bigdecimal::BigDecimal;
-use rand::Rng;
+//use rand::Rng;
 use std::process::Command;
 use std::str::FromStr;
 
-fn main() {
+fn main() {}
+
+#[cfg(not)]
+fn test_main() {
     let mut rng = rand::thread_rng();
     // 注意python3的`round(0.2823398503991065, 15)`结果是错的，所以round_digits的范围不要太大, round超过15python容易报错
     for _ in 0..200 {
