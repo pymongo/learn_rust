@@ -27,6 +27,45 @@ let now = std::time::Instant::now();
 println!("{:?}", now.elapsed());
 ```
 
+### Rust没有函数重载，但是标准库IPv4的构造函数有类似函数重载的效果
+
+```rust
+// mock constructor overload in C++/java
+struct Ip(u32);
+
+impl From<u32> for Ip {
+    fn from(val: u32) -> Self {
+        Self(val)
+    }
+}
+
+impl From<[u8; 4]> for Ip {
+    fn from(val: [u8; 4]) -> Self {
+        // bigger-endian
+        Self(
+            val[0] as u32 + (val[1] as u32)
+                << 8 + (val[2] as u32)
+                << 16 + (val[3] as u32)
+                << 24,
+        )
+    }
+}
+```
+
+### 一次迭代同时求出最大值和最小值
+
+```rust
+#[test]
+fn iter_once_both_max_and_min() {
+    let nums = vec![1i32, 2, 3, 4, 5];
+    let (max, min) = nums.iter().fold((i32::MIN, i32::MAX), |(max, min), &x| {
+        (max.max(x), min.min(x))
+    });
+    assert_eq!(max, *nums.iter().max().unwrap());
+    assert_eq!(min, *nums.iter().min().unwrap());
+}
+```
+
 ---
 
 ## CPU硬件相关的编程技术

@@ -1,5 +1,4 @@
-#![allow(incomplete_features, dead_coe)]
-#![feature(const_generics, const_fn, const_in_array_repeat_expressions)]
+#![feature(const_fn)]
 use std::mem::MaybeUninit;
 
 /**
@@ -7,6 +6,7 @@ use std::mem::MaybeUninit;
 1. T只能是整数、布尔值，也不允许使用引用(意味着不能用胖指针的字符串)
 */
 struct Array<T, const N: usize> {
+    #[allow(dead_code)]
     items: [MaybeUninit<T>; N],
     length: usize,
 }

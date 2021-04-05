@@ -54,9 +54,7 @@ fn get_timestamp() {
     extern "C" {
         fn time(time_t_mut: *mut i64) -> i64;
     }
-    let c_now_timestamp = unsafe {
-        time(std::ptr::null_mut() as *mut i64)
-    };
+    let c_now_timestamp = unsafe { time(std::ptr::null_mut() as *mut i64) };
 
     // 方法二: Rust标准库获取当前时间戳的API
     let std_now_timestamp = std::time::SystemTime::now()
@@ -72,7 +70,10 @@ fn get_timestamp() {
     assert_eq!(c_now_timestamp, std_now_timestamp);
     assert_eq!(std_now_timestamp, chrono_now_timestamp);
 
-    assert_eq!(chrono::Utc::now().timestamp(), chrono::Local::now().timestamp());
+    assert_eq!(
+        chrono::Utc::now().timestamp(),
+        chrono::Local::now().timestamp()
+    );
 }
 
 /** 实现chrono::Local::now()
