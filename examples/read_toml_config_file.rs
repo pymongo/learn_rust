@@ -27,8 +27,8 @@ impl Config {
 
     fn database_url(&self, app_env: AppEnv) -> String {
         let dbname = match app_env {
-            AppEnv::Production => &self.mysql.dbname.production,
-            AppEnv::Test => &self.mysql.dbname.test.as_ref().unwrap(),
+            AppEnv::Production => self.mysql.dbname.production.clone(),
+            AppEnv::Test => self.mysql.dbname.test.clone().unwrap(),
         };
         return format!(
             "mysql://{username}:{password}@{host}:{port}/{dbname}",

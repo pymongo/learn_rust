@@ -9,7 +9,7 @@ impl Nums {
         self.0.reserve(1);
         unsafe {
             {
-                let p = self.0.as_mut_ptr().offset(i as isize);
+                let p = self.0.as_mut_ptr().add(i);
                 // 将要插入位置往右的所有元素都右移一格
                 std::ptr::copy(p, p.offset(1), len - i);
                 // 往空出来的位置上插入新值

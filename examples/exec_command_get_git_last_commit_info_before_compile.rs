@@ -1,3 +1,4 @@
+//! 类似功能的crate: rustc_tools_util，rustc_tools_util的例子看clippy源码
 use std::process::Command;
 
 /*

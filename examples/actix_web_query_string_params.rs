@@ -18,9 +18,9 @@ async fn query_string_params(req: HttpRequest) -> impl Responder {
     dbg!(req.clone());
     let user_params: web::Query<User> = web::Query::from_query(req.query_string()).unwrap();
     // 因为这里把user_params中的String借给了user，两个变量不能共用一个堆内存String，所以String要声明为static
-    return web::Json(serde_json::json!(User {
+    web::Json(serde_json::json!(User {
         age: user_params.age
-    }));
+    }))
 }
 
 async fn test_query_string_params() {

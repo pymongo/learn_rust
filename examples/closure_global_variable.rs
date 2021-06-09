@@ -3,7 +3,7 @@ fn outer1() -> impl FnMut() -> bool {
     let mut state = false;
     move || {
         state = !state;
-        return state;
+        state
     }
 }
 

@@ -46,6 +46,7 @@ struct GoodSelfReferential {
     _exclamation_mark_unpin: std::marker::PhantomPinned,
 }
 
+#[allow(dead_code)]
 impl GoodSelfReferential {
     fn new(s: &str) -> Self {
         let mut this = Self {

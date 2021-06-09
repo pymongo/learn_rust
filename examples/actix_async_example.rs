@@ -33,7 +33,7 @@ impl Handler<Msg> for MyActor {
             }
             .into_actor(self),
         );
-
+        // Actix同步函数嵌入异步代码有两种，一种类似js的promise，另一种是用特殊的Actor包起来
         // 方法2，使用Actix同步函数内的异步模板: addr.send().into_actor(self).then(/*response回调*/).wait(ctx);
         // 因为addr.send()是异步的，想要读返回的数据就必须用异步的代码
         println!("End of Handler<Msg> for MyActor");
@@ -49,7 +49,7 @@ impl Handler<Msg> for MyActor {
 // async fn bar() {}
 
 fn main() {
-    let system = System::new("test");
+    let system = System::new();
 
     let addr = MyActor {}.start();
     // dbg!(std::mem::size_of_val(&addr)); // 24 Bytes

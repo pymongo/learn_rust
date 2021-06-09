@@ -1,10 +1,9 @@
-use chrono::{Date, Datelike, Local, TimeZone, Weekday};
-
 fn main() {}
 
 /// 获取昨天、明天的API
 #[test]
 fn get_yesterday_and_tomorrow_api() {
+    use chrono::{Date, Local};
     let today: Date<Local> = Local::today();
     let yesterday: Date<Local> = today.pred();
     let tomorrow: Date<Local> = today.succ();
@@ -14,23 +13,24 @@ fn get_yesterday_and_tomorrow_api() {
 /// 获取两个日期之间相差几天
 #[test]
 fn timedelta_days_subtract() {
+    use chrono::{Date, Datelike, Local, TimeZone};
     let now: Date<Local> = Local::today();
-    let begin_of_year: Date<Local> = chrono::Local.ymd(now.year(), 1, 1);
+    let begin_of_year: Date<Local> = Local.ymd(now.year(), 1, 1);
     let date_diff = now.signed_duration_since(begin_of_year);
     dbg!(date_diff);
-    let date1: Date<Local> = chrono::Local.ymd(now.year(), 1, 1);
-    let date2: Date<Local> = chrono::Local.ymd(now.year(), 1, 2);
+    let date1: Date<Local> = Local.ymd(now.year(), 1, 1);
+    let date2: Date<Local> = Local.ymd(now.year(), 1, 2);
     assert_eq!(date2.signed_duration_since(date1).num_days(), 1);
 }
 
 /// 判断某年的每一天是不是周末
 #[test]
 fn weekend_of_a_year() {
-    use std::ops::Add;
-    let first_day: Date<Local> = chrono::Local.ymd(2020, 1, 1);
+    use chrono::{Date, Datelike, Local, TimeZone, Weekday};
+    let first_day: Date<Local> = Local.ymd(2020, 1, 1);
     let mut workdays = ['1'; 366];
     for i in 0..366 {
-        let date = first_day.add(chrono::Duration::days(i as i64));
+        let date = first_day + chrono::Duration::days(i as i64);
         if date.weekday() == Weekday::Sat || date.weekday() == Weekday::Sun {
             workdays[i] = '0';
         }

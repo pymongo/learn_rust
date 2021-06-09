@@ -124,7 +124,7 @@ impl Handler<Msg> for Node {
 N个链表节点围成一圈，从节点0开始往next_node发一条信息，信息在环内转两圈后结束
 */
 fn main() {
-    let system = System::new("ring_example");
+    let system = System::new();
     let second_node = Node::create(move |ctx| {
         let first_addr = ctx.address();
         let mut successor_addr = Node {

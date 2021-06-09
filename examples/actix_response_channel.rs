@@ -1,4 +1,6 @@
-use actix::dev::{MessageResponse, ResponseChannel};
+/*
+
+use actix::dev::MessageResponse;
 use actix::prelude::*;
 
 #[derive(Message)]
@@ -18,6 +20,7 @@ where
     A: Actor,
     M: Message<Result = Responses>,
 {
+    // FIXME ResponseChannel not found
     fn handle<R: ResponseChannel<M>>(self, _: &mut A::Context, tx: Option<R>) {
         if let Some(tx) = tx {
             tx.send(self);
@@ -79,3 +82,6 @@ async fn main() {
         Err(e) => println!("Actor is probably dead: {}", e),
     }
 }
+*/
+
+fn main() {}

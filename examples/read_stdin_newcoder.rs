@@ -14,10 +14,8 @@ def parse_stdin():
 fn main() {
     // 注意在IDEA上发送EOF的快捷键是cmd+d
     let mut input: Vec<String> = Vec::new();
-    for line in std::io::stdin().lock().lines() {
-        if let Ok(str) = line {
-            input.push(str);
-        }
+    for line in std::io::stdin().lock().lines().flatten() {
+        input.push(line);
     }
     let nums: Vec<i32> = input[0]
         .split_whitespace()

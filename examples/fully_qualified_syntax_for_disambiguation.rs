@@ -26,9 +26,8 @@ fn main() {
     <S as B>::test(&s);
 
     let a = Some("a".to_string());
-    match a {
-        Some(s) => println!("{}", s),
-        _ => {}
+    if let Some(s) = a {
+        println!("{}", s)
     }
     // value borrowed here after partial move
     // println!("{:?}", a);

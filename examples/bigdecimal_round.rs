@@ -17,15 +17,15 @@ MySQL、python、round的round只跟倒数第二位有关
 2.1 如果需要五入而且是负数，则截断成2位后，减去0.01，例如-1.115 => -1.12
 2.2 如果需要五入是正数，则截断2位后，加上0.01，例如 1.785 => 1.79
 */
-use bigdecimal::BigDecimal;
-//use rand::Rng;
-use std::process::Command;
-use std::str::FromStr;
 
 fn main() {}
 
-#[cfg(not)]
+#[test]
 fn test_main() {
+    use bigdecimal::BigDecimal;
+    use rand::Rng;
+    use std::str::FromStr;
+
     let mut rng = rand::thread_rng();
     // 注意python3的`round(0.2823398503991065, 15)`结果是错的，所以round_digits的范围不要太大, round超过15python容易报错
     for _ in 0..200 {
@@ -33,7 +33,7 @@ fn test_main() {
         let random_digits = rng.gen_range(-14, 14);
         let python_expr = format!("print(round({}, {}))", random_float, random_digits);
         println!("{}", python_expr);
-        let output = Command::new("python3")
+        let output = std::process::Command::new("python3")
             .arg("-c")
             .arg(&python_expr)
             .output()
@@ -42,7 +42,7 @@ fn test_main() {
         let round_result = input_decimal.round(random_digits);
         let python_output = String::from_utf8(output.stdout).unwrap();
         // use trim API to remove '\n' at the end of python print
-        let python_round_result = BigDecimal::from_str(python_output.trim()).unwrap();
+        let python_round_result = BigDecimal::from_str(python_output.trim_end()).unwrap();
         assert_eq!(round_result, python_round_result);
     }
 }

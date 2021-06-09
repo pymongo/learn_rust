@@ -13,7 +13,6 @@ fn main() {
         );
     }
     assert_eq!(register, 1usize.rotate_left(1));
-    assert_ne!(f32::NAN, f32::NAN);
 }
 
 /// https://blog.rust-lang.org/inside-rust/2020/06/08/new-inline-asm.html
