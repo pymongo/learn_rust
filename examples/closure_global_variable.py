@@ -1,6 +1,5 @@
 def outer():
     state = False
-
     def inner():
         nonlocal state
         state = not state

@@ -24,13 +24,3 @@ fn bench_once_cell(bencher: &mut test::Bencher) {
         assert_eq!(MARKET_ID.get().unwrap(), "btcusdt");
     });
 }
-
-/*
-#[bench]
-fn bench_reduce_add_10000(bencher: &mut test::Bencher) {
-    bencher.iter(|| {
-        // fold类似于其它语言的reduce
-        (1..=10000).fold(0, |x, y| x + y);
-    });
-}
-*/

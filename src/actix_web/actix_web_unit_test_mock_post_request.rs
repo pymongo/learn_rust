@@ -21,7 +21,9 @@ async fn test_post_form() {
     println!("response = {:#?}", resp);
 }
 
-#[actix_web::main]
-async fn main() {
-    test_post_form().await;
+#[test]
+fn main() {
+    tokio_uring::start(async {
+        test_post_form().await;
+    });
 }

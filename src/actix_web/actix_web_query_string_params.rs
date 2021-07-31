@@ -32,7 +32,9 @@ async fn test_query_string_params() {
     println!("response = {:#?}", resp);
 }
 
-#[actix_web::main]
-async fn main() {
-    test_query_string_params().await;
+#[test]
+fn main() {
+    tokio_uring::start(async {
+        test_query_string_params().await;
+    });
 }
