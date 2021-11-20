@@ -1,10 +1,6 @@
 #![feature(const_fn_trait_bound)]
 use std::mem::MaybeUninit;
 
-/**
-当前(1.49.0)常量泛型的不足
-1. T只能是整数、布尔值，也不允许使用引用(意味着不能用胖指针的字符串)
-*/
 struct Array<T, const N: usize> {
     #[allow(dead_code)]
     items: [MaybeUninit<T>; N],
