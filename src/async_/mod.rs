@@ -1,1 +1,2 @@
 mod sync_vs_async_read_file;
+mod fasterthanli_blog_async_articles_notes;

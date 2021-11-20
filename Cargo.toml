@@ -12,6 +12,7 @@ actix = "*"
 actix-web = "*"
 futures = { version= "*", features = ["thread-pool"] }
 tokio-uring = "0.1.0"
+tokio = { version = "1.0", features = ["rt-multi-thread"] }
 
 isahc = "*"
 serde = { version = "*", features = ["derive"] }

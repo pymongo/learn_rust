@@ -1103,6 +1103,7 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_repr",
+ "tokio 1.14.0",
  "tokio-uring",
  "toml",
 ]
@@ -2047,6 +2048,7 @@ dependencies = [
  "libc",
  "memchr",
  "mio 0.7.14",
+ "num_cpus",
  "once_cell",
  "parking_lot",
  "pin-project-lite 0.2.7",
