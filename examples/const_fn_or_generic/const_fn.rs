@@ -26,6 +26,7 @@ const fn fib(n: u32) -> u32 {
 // 1 1 2 3 5
 const FIB_5: u32 = fib(5);
 
+#[test]
 fn main() {
     assert_eq!(GCD, 6);
     assert_eq!(FIB_5, 5);

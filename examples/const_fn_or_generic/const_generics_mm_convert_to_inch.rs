@@ -28,7 +28,7 @@ impl<const F: u32> std::ops::Add for Length<F> {
     }
 }
 
-fn main() {
+pub(super) fn main() {
     // 14 cm
     dbg!((Cm::new(10u32) + Mm::new(40u32).into_length()).0);
     // 140 mm
