@@ -10,7 +10,8 @@ edition = "2021"
 # async runtime relative creates
 actix = "*"
 actix-web = "*"
-futures = { version= "*", features = ["thread-pool"] }
+futures = { version= "0.3", features = ["thread-pool"] }
+pin-project = "1.0"
 tokio-uring = "0.1.0"
 tokio = { version = "1.0", features = ["rt-multi-thread"] }
 

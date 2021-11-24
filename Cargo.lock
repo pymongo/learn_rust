@@ -1098,6 +1098,7 @@ dependencies = [
  "isahc",
  "itertools",
  "num-bigint",
+ "pin-project 1.0.8",
  "rand 0.8.4",
  "rust_decimal",
  "serde",
