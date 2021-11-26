@@ -158,6 +158,7 @@ fn f5() {
 /// warp tokio::time::sleep
 /// 相当于我的 F6 就是 tokio::time::sleep 的委托/转发模式
 struct F6 {
+    /// Sleep::reset 可以重新设置 tokio sleep 的 timer
     sleep: Pin<Box<tokio::time::Sleep>>,
 }
 
@@ -186,18 +187,55 @@ fn f6() {
     });
 }
 
+use tokio::io::{AsyncRead, ReadBuf};
+
+/*
+201 |         Pin::new(&mut self.reader).poll_read(cx, buf)
+    |         -------- ^^^^^^^^^^^^^^^^ the trait `Unpin` is not implemented for `R`
+    |         |
+    |         required by a bound introduced by this call
+    |
+    = note: consider using `Box::pin`
+note: required by `Pin::<P>::new`
+   --> /home/w/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/pin.rs:484:5
+    |
+484 |     pub const fn new(pointer: P) -> Pin<P> {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: consider further restricting this bound
+    |
+195 | impl<R: AsyncRead + std::marker::Unpin> AsyncRead for F7ReadWrapper<R> {
+    |                   ++++++++++++++++++++
+
+---
+
+## solution 1
+`reader: R` -> `reader: Pin<Box<R>>`
+> 通用解决方案，tokio Sleep 和 File 都能用
+
+## solution 2
+add std::pin::Unpin trait bound
+我需要 Pin 之后依然能 move/拿到 self.reader 的数据
+> tokio File Unpin 可以这么解决，但是 tokio Sleep **not Unpin** 不能这么处理
+
+大部分标准库的类型都实现了 `Unpin` 例如 String, impl Unpin for String
+只有 std::marker::PhantomPinned 实现了 `!Unpin`
+
+Pin<&mut T> of it, we can never use it unpinned (ie, as &mut T) ever again, unless it implements Unpin.
+所以 Sleep !Unpin 的不能通过 Pin<&mut T> 拿到 &mut T
+
+---
+
+像 Sleep 这让 !Unpin 的，有时候可以通过 Pin::new_unchecked 绕开编译器检查
+*/
 struct F7ReadWrapper<R> {
     reader: R,
 }
-
-use tokio::io::{AsyncRead, ReadBuf};
-
-impl<R: AsyncRead> AsyncRead for F7ReadWrapper<R> {
+impl<R> AsyncRead for F7ReadWrapper<R> where R: AsyncRead + std::marker::Unpin {
     fn poll_read(
-        self: Pin<&mut Self>,
+        mut self: Pin<&mut Self>,
         cx: &mut Context<'_>,
         buf: &mut ReadBuf<'_>,
     ) -> Poll<std::io::Result<()>> {
-        self.reader.poll_read()
+        Pin::new(&mut self.reader).poll_read(cx, buf)
     }
 }
