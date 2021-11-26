@@ -1,8 +1,7 @@
-#![feature(generators, generator_trait)]
-// use std::future::Future;
 use std::ops::Generator;
 use std::pin::Pin;
 
+#[test]
 fn main() {
     // 这部分生成器的源码展开后，会得到类似状态机的代码
     let mut func = || {

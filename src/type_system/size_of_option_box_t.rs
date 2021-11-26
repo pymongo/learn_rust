@@ -1,25 +1,14 @@
 /*!
 ```text
 warning: large size difference between variants
-  --> api/src/api_error.rs:28:5
-   |
 28 |     DbError(db::DbError),
    |     ^^^^^^^^^^^^^^^^^^^^ this variant is 328 bytes
    |
    = note: `#[warn(clippy::large_enum_variant)]` on by default
-note: and the second-largest variant is 8 bytes:
-  --> api/src/api_error.rs:25:5
-   |
-25 |     IsahcErr(isahc::Error),
-   |     ^^^^^^^^^^^^^^^^^^^^^^
-   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#large_enum_variant
-help: consider boxing the large fields to reduce the total size of the enum
-   |
-28 |     DbError(Box<db::DbError>),
-   |             ^^^^^^^^^^^^^^^^
+note: and the second-largest variant is 8 bytes:    ^^^^^^^^^^^^^^^^
 ```
 */
-
+#[test]
 fn main() {
     use std::mem::{align_of, size_of, size_of_val};
     #[derive(Clone)]

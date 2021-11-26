@@ -44,7 +44,7 @@ fn eat_static<T: Animal>(animal: &T) {
 // fn make_animal_eating_2<T: Animal>(animal: T) {
 //     animal.eat();
 // }
-
+#[test]
 fn main() {
     // make_animal_eating(&Cat{});
     // cat和dog实例需要分配在堆内存中才能装入Vec，否则会报错: Sized is not known at compile time
