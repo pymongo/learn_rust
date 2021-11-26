@@ -6,6 +6,7 @@ use std::task::{Context, Poll};
 fn tokio_single_thread_block_on(fut: impl Future) {
     let rt = tokio::runtime::Builder::new_current_thread()
         .enable_time()
+        .enable_io()
         .build()
         .unwrap();
     rt.block_on(fut);
@@ -238,4 +239,76 @@ impl<R> AsyncRead for F7ReadWrapper<R> where R: AsyncRead + std::marker::Unpin {
     ) -> Poll<std::io::Result<()>> {
         Pin::new(&mut self.reader).poll_read(cx, buf)
     }
+}
+
+/// contains both Unpin and !Unpin filed
+/// map_unchecked_mut 或者 pin_project 可以拿到一个部分 !Unpin 结构体的字段，并当作 Unpin 去使用
+struct F8BothUnpinAndNotUnpinField {
+    sleep: tokio::time::Sleep,
+    file: tokio::fs::File
+}
+
+impl AsyncRead for F8BothUnpinAndNotUnpinField
+// where
+//     R: AsyncRead + Unpin,
+{
+    fn poll_read(
+        mut self: Pin<&mut Self>,
+        cx: &mut Context<'_>,
+        buf: &mut ReadBuf<'_>,
+    ) -> Poll<std::io::Result<()>> {
+        let sleep = unsafe { self.as_mut().map_unchecked_mut(|this| &mut this.sleep) };
+        match sleep.poll(cx) {
+            Poll::Ready(_) => {
+                // 因为 sleep 字段 not unpin 传染到整个 struct 都成了 not unpin
+                // let sleep = Pin::new(&mut self.sleep).poll(cx);
+                let sleep = unsafe { self.as_mut().map_unchecked_mut(|this| &mut this.sleep) };
+
+                sleep.reset(tokio::time::Instant::now() + std::time::Duration::from_millis(25));
+                let reader = unsafe { self.as_mut().map_unchecked_mut(|this| &mut this.file) };
+                reader.poll_read(cx, buf)
+            }
+            Poll::Pending => Poll::Pending,
+        }
+    }
+}
+
+/**
+为什么 tokio Sleep 设计成 Not Unpin
+因为 tokio::fs::File 相比定时器更像是无状态的，event waker 像是全局的
+而 Sleep 用的 timer 是线程绑定的定时器?
+
+因为 timer 要 register/deregisters 注册和取消注册事件
+*/
+#[test]
+fn tokio_sleep_panic_after_move() {
+    use std::{mem::swap, pin::Pin, task::Poll, time::Duration};
+    use tokio::{macros::support::poll_fn, time::sleep};
+    tokio_single_thread_block_on(async {
+        let mut sleep1 = sleep(Duration::from_secs(1));
+        let mut sleep2 = sleep(Duration::from_secs(1));
+
+        {
+            // let's use `sleep1` pinned exactly _once_
+            let mut sleep1 = unsafe { Pin::new_unchecked(&mut sleep1) };
+
+            // this creates a future whose poll method is the closure argument
+            poll_fn(|cx| {
+                // we poll `sleep1` once, throwing away the result...
+                let _ = sleep1.as_mut().poll(cx);
+
+                // ...and resolve immediately
+                Poll::Ready(())
+            })
+            .await;
+        }
+
+        // then, let's use `sleep1` unpinned:
+        swap(&mut sleep1, &mut sleep2);
+        // by this point, `sleep1` has switched places with `sleep2`
+
+        // finally, let's await both sleep1 and sleep2
+        sleep1.await;
+        sleep2.await;
+    })
 }
