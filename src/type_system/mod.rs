@@ -2,3 +2,4 @@ mod std_into_try_into_type_annotation;
 mod new_type_pattern_deref_trait;
 mod size_of_option_box_t;
 mod polymorphism;
+mod fn_trait_function_overload;

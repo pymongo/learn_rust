@@ -274,11 +274,13 @@ impl AsyncRead for F8BothUnpinAndNotUnpinField
 }
 
 /**
-为什么 tokio Sleep 设计成 Not Unpin
+## 为什么 tokio Sleep 设计成 Not Unpin
 因为 tokio::fs::File 相比定时器更像是无状态的，event waker 像是全局的
 而 Sleep 用的 timer 是线程绑定的定时器?
+因为 timer 要 register/deregisters 注册和取消注册事件?
 
-因为 timer 要 register/deregisters 注册和取消注册事件
+## tokio的issue#3028里解释了为啥sleep是!Unpin
+而之前版本的 tokio 代码的 sleep 是 pin
 */
 #[test]
 fn tokio_sleep_panic_after_move() {
