@@ -18,3 +18,4 @@
 mod custom_impl_future;
 mod std_api;
 mod trace_async_read;
+mod resolve_future_lifetime_static;

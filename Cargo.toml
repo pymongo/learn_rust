@@ -11,9 +11,11 @@ edition = "2021"
 actix = "*"
 actix-web = "*"
 futures = { version= "0.3", features = ["thread-pool"] }
-pin-project = "1.0"
 tokio-uring = "0.1.0"
-tokio = { version = "1.0", features = ["fs", "macros"] }
+tokio = { version = "1.0", features = ["fs", "macros", "rt-multi-thread"] }
+reqwest = "*"
+
+pin-project = "1.0"
 
 isahc = "*"
 serde = { version = "1.0", features = ["derive"] }
@@ -28,6 +30,10 @@ itertools = "*"
 flate2 = "*" # gzip
 rand = "*"
 
+eyre = "0.6"
+color-eyre = "*"
 anyhow = "1.0"
 # anyhow = { version = "1.0", features = ["backtrace"] }
+tracing = "*"
+tracing-subscriber = "*"
 libc = "0.2"

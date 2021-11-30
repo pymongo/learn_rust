@@ -2,6 +2,7 @@
 #![feature(test)]
 #![feature(generators, generator_trait)]
 #![feature(unboxed_closures, fn_traits)]
+#![feature(type_name_of_val)]
 extern crate test;
 #[cfg(test)]
 mod actix_web;
