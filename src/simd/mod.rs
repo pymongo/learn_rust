@@ -2,8 +2,8 @@
 
 #[test]
 fn vector_multiple() {
-    let vector = std::simd::u64x8::from_array([1, 2, 3, 4, 5, 6, 7, 8]);
-    println!("{:?}", vector * 10);
+    let vector = std::simd::Simd::from_array([2_i32]);
+    println!("{:?}", vector * std::simd::Simd::from_array([2_i32]));
 }
 
 /// CRC 循环冗余校验码 算法
