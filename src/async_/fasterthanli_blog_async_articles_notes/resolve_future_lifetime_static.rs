@@ -59,10 +59,9 @@ async fn main_transmute_extend_lifetime() {
     // tokio::time::sleep(std::time::Duration::from_secs(1)).await;
 }
 
-
 #[tokio::test]
 async fn test_main_transmute_extend_lifetime() {
-    main_transmute_extend_lifetime().await;    
+    main_transmute_extend_lifetime().await;
 }
 
 async fn main_box_leak_lifetime_to_static() {
@@ -83,41 +82,8 @@ async fn main_box_leak_lifetime_to_static() {
 #[tokio::test(flavor = "multi_thread")]
 async fn test_main_box_leak_lifetime_to_static() {
     // let a = tokio::runtime::Handle::current().fla;
-    main_box_leak_lifetime_to_static().await;    
+    main_box_leak_lifetime_to_static().await;
 }
 
-use reqwest::Client;
-use std::time::Duration;
-
-fn fetch_thing(
-    client: &'static Client,
-    url: &'static str
-) -> impl Future<Output = ()> + 'static {
-    async move {
-        // % means Display
-        tracing::info!(%url, "before req url");
-        let res = client.get(url).send().await.unwrap().error_for_status().unwrap();
-        // ? means Debug
-        tracing::info!(CONTENT_LENGTH = ?res.headers().get(reqwest::header::CONTENT_LENGTH), "Got a response!");
-    }
-}
-
-const URL_1: &str = "https://fasterthanli.me/articles/whats-in-the-box";
-const URL_2: &str = "https://fasterthanli.me/series/advent-of-code-2020/part-13";
-
-/// concurrency(并发) req 1
-// #[tokio::test]
-#[tokio::test(flavor = "multi_thread")]
-async fn concurrency_req_1() {
-    before_do();
-    let client = Client::new();
-    let leaked_client = Box::leak(Box::new(client));
-
-    let fut1 = fetch_thing(leaked_client, URL_1);
-    let fut2 = fetch_thing(leaked_client, URL_2);
-
-    tokio::spawn(fut1);
-    tokio::spawn(fut2);
-
-    tokio::time::sleep(Duration::from_secs(2)).await;
-}
+// 方法三: 套上 Arc
+// 方法一二无论是 transmute 还是 Box::leak 似乎难以在编译期保证 Client drop 之后没有继续调用

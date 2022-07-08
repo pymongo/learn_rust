@@ -73,6 +73,7 @@ impl Map {
 #[no_mangle]
 pub extern "C" fn map_new() -> *mut Map {
     // Map::new() as *mut Map
+    // Box::leak 主动内存泄漏
     Box::into_raw(Box::new(Map::new()))
 }
 

@@ -28,6 +28,4 @@ fn unsafe_extend_lifetime() {
     }
 }
 
-fn main() {
-    
-}
+fn main() {}

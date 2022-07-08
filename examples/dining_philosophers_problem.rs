@@ -3,6 +3,8 @@ use std::sync::{
     atomic::{AtomicU8, Ordering},
     Arc, Mutex,
 };
+use std::thread::sleep;
+use std::time::Duration;
 
 static PHILOSOPHER_INDEX: AtomicU8 = AtomicU8::new(0);
 
@@ -32,7 +34,7 @@ impl Philosopher {
             self.left, self.right, self.name
         );
 
-        std::thread::sleep(std::time::Duration::from_millis(500));
+        sleep(Duration::from_millis(500));
         println!("{} is done eating.", self.name);
     }
 }
@@ -103,5 +105,71 @@ fn solve_by_scoped_thread() {
                 philosopher.eat(table);
             });
         });
+    });
+}
+
+#[test]
+fn test_loop_shutdown_receiver() {
+    let nums = vec![1, 2, 3];
+    let is_running = Arc::new(std::sync::atomic::AtomicBool::new(true));
+    let is_running_ = is_running.clone();
+    std::thread::spawn(move || {
+        let is_running = is_running_;
+        loop {
+            if !is_running.load(Ordering::Relaxed) {
+                break;
+            }
+            println!("{}", nums[0]);
+            sleep(Duration::from_secs(1));
+        }
+    });
+    sleep(Duration::from_secs(3));
+    is_running.store(false, Ordering::SeqCst);
+}
+
+#[test]
+fn test_scoped_thread_loop_shutdown_receiver_1() {
+    let nums = vec![1, 2, 3];
+
+    // scoped 用到的变量尽量放在外面，这样生命周期才能做高
+    let is_running = std::sync::atomic::AtomicBool::new(true);
+    std::thread::scope(|scope| {
+        // `is_running` does not live long enough
+        // let is_running = std::sync::atomic::AtomicBool::new(true);
+        scope.spawn({
+            let is_running = &is_running;
+            move || loop {
+                if !is_running.load(Ordering::Relaxed) {
+                    break;
+                }
+                println!("{}", nums[0]);
+                sleep(Duration::from_secs(1));
+            }
+        });
+
+        sleep(Duration::from_secs(3));
+        is_running.store(false, Ordering::SeqCst);
+    });
+}
+
+#[cfg(FALSE)]
+#[test]
+fn test_scoped_thread_loop_shutdown_receiver_2() {
+    let nums = vec![1, 2, 3];
+
+    let mut is_running = true;
+    std::thread::scope(|scope| {
+        let is_running1 = &is_running;
+        let is_running2 = &mut is_running;
+        scope.spawn(move || loop {
+            if !is_running1 {
+                break;
+            }
+            println!("{}", nums[0]);
+            sleep(Duration::from_secs(1));
+        });
+
+        sleep(Duration::from_secs(3));
+        *is_running2 = true;
     });
 }

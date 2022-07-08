@@ -8,7 +8,7 @@ extern crate test;
 mod actix_web;
 #[cfg(test)]
 mod async_;
-mod simd;
-mod type_system;
 #[cfg(test)]
 mod error_handling;
+mod simd;
+mod type_system;

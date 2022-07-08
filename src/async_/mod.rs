@@ -1,3 +1,4 @@
 mod fasterthanli_blog_async_articles_notes;
-mod sync_vs_async_read_file;
 mod generator;
+mod sync_vs_async_read_file;
+mod future_size;

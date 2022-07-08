@@ -6,14 +6,18 @@ edition = "2021"
 #[dependencies]
 #bigdecimal = { version="*", features = ["serde"] }
 
+[dependencies]
+tracing = "*"
+tracing-subscriber = "*"
+reqwest = "*"
+tokio = { version = "1.0", features = ["fs", "macros", "rt-multi-thread"] }
+
 [dev-dependencies]
 # async runtime relative creates
 actix = "*"
 actix-web = "*"
 futures = { version= "0.3", features = ["thread-pool"] }
 tokio-uring = "0.1.0"
-tokio = { version = "1.0", features = ["fs", "macros", "rt-multi-thread"] }
-reqwest = "*"
 
 pin-project = "1.0"
 
@@ -34,6 +38,4 @@ eyre = "0.6"
 color-eyre = "*"
 anyhow = "1.0"
 # anyhow = { version = "1.0", features = ["backtrace"] }
-tracing = "*"
-tracing-subscriber = "*"
 libc = "0.2"

@@ -231,7 +231,10 @@ Pin<&mut T> of it, we can never use it unpinned (ie, as &mut T) ever again, unle
 struct F7ReadWrapper<R> {
     reader: R,
 }
-impl<R> AsyncRead for F7ReadWrapper<R> where R: AsyncRead + std::marker::Unpin {
+impl<R> AsyncRead for F7ReadWrapper<R>
+where
+    R: AsyncRead + std::marker::Unpin,
+{
     fn poll_read(
         mut self: Pin<&mut Self>,
         cx: &mut Context<'_>,
@@ -245,7 +248,7 @@ impl<R> AsyncRead for F7ReadWrapper<R> where R: AsyncRead + std::marker::Unpin {
 /// map_unchecked_mut 或者 pin_project 可以拿到一个部分 !Unpin 结构体的字段，并当作 Unpin 去使用
 struct F8BothUnpinAndNotUnpinField {
     sleep: tokio::time::Sleep,
-    file: tokio::fs::File
+    file: tokio::fs::File,
 }
 
 impl AsyncRead for F8BothUnpinAndNotUnpinField

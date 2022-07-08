@@ -2,7 +2,7 @@
 
 #[test]
 fn vector_multiple() {
-    let vector = std::simd::u64x8::from_array([1,2,3,4,5,6,7,8]);
+    let vector = std::simd::u64x8::from_array([1, 2, 3, 4, 5, 6, 7, 8]);
     println!("{:?}", vector * 10);
 }
 
