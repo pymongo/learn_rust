@@ -12,3 +12,4 @@ mod async_;
 mod error_handling;
 mod simd;
 mod type_system;
+mod bincode;

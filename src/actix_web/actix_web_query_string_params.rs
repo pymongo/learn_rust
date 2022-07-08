@@ -1,4 +1,4 @@
-use actix_web::{get, test, web, App, HttpRequest, Responder};
+use actix_web::{get, web, HttpRequest, Responder};
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -23,6 +23,7 @@ async fn query_string_params(req: HttpRequest) -> impl Responder {
     }))
 }
 
+#[cfg(not)]
 async fn test_query_string_params() {
     let mut app_service = test::init_service(App::new().service(query_string_params)).await;
     let req = test::TestRequest::get()
@@ -32,6 +33,7 @@ async fn test_query_string_params() {
     println!("response = {:#?}", resp);
 }
 
+#[cfg(not)]
 #[test]
 fn main() {
     tokio_uring::start(async {

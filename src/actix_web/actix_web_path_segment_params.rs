@@ -1,7 +1,7 @@
-use actix_web::{get, test, web, App, HttpRequest, HttpResponse};
+use actix_web::{get, web, HttpRequest, HttpResponse};
 
 #[get("/user/{id}")]
-fn path_segment_param(req: HttpRequest, path: web::Path<(u32,)>) -> HttpResponse {
+async fn path_segment_param(req: HttpRequest, path: web::Path<(u32,)>) -> HttpResponse {
     // uri: /user/123, path: None, skip: 9, segments: [("id", Segment(6, 9))]
     dbg!(req.clone());
     // 注意暂时不要用`path.0.0`这样的表达式，可读性差
@@ -19,14 +19,16 @@ fn path_segment_param(req: HttpRequest, path: web::Path<(u32,)>) -> HttpResponse
     HttpResponse::Ok().body("ok")
 }
 
+#[cfg(not)]
 async fn test_path_segment_param() {
     let mut app_service = test::init_service(App::new().service(path_segment_param)).await;
     let req = test::TestRequest::get().uri("/user/123").to_request();
     test::call_service(&mut app_service, req).await;
 }
 
-#[test]
-fn main() {
+#[cfg(not)]
+#[actix_web::test]
+async fn main() {
     tokio_uring::start(async {
         test_path_segment_param().await;
     });

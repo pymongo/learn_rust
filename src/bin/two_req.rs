@@ -1,6 +1,5 @@
 use reqwest::Client;
 use std::future::Future;
-use std::time::Duration;
 
 fn before_do() {
     if std::env::var("RUST_LOG").is_err() {

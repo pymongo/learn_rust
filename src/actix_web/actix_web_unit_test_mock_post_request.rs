@@ -1,4 +1,4 @@
-use actix_web::{post, test, web, App, Responder};
+use actix_web::{post, web, Responder};
 
 #[derive(serde::Serialize, serde::Deserialize, Debug)]
 struct User {
@@ -10,6 +10,7 @@ async fn post_form(form: web::Form<User>) -> impl Responder {
     web::Json(serde_json::json!(User { age: form.age }))
 }
 
+#[cfg(not)]
 async fn test_post_form() {
     let mut app_service = test::init_service(App::new().service(post_form)).await;
     let user = User { age: 18 };
@@ -21,8 +22,9 @@ async fn test_post_form() {
     println!("response = {:#?}", resp);
 }
 
-#[test]
-fn main() {
+#[cfg(not)]
+#[actix_web::test]
+async fn main() {
     tokio_uring::start(async {
         test_post_form().await;
     });

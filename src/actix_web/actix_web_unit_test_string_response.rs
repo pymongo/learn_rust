@@ -1,4 +1,4 @@
-use actix_web::{get, test, App, Responder};
+use actix_web::{get, Responder};
 
 #[get("/")]
 async fn get_index() -> impl Responder {
@@ -6,6 +6,7 @@ async fn get_index() -> impl Responder {
 }
 
 #[test]
+#[cfg(not)]
 fn main() {
     tokio_uring::start(async {
         let mut app_service = test::init_service(App::new().service(get_index)).await;
