@@ -13,3 +13,5 @@ mod error_handling;
 mod simd;
 mod type_system;
 mod bincode;
+#[cfg(test)]
+mod count_receipts_csv_total_amount;
