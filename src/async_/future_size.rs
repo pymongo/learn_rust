@@ -1,5 +1,3 @@
-
-
 const BUF_SIZE: usize = 1 * 1024 * 1024;
 const FILENAME_TO_READ: &str = "Cargo.toml";
 
@@ -12,16 +10,13 @@ fn read() {
 }
 
 async fn read_async() {
-use tokio::io::AsyncReadExt;
-let mut buf = [0u8; BUF_SIZE];
-let mut f = tokio::fs::File::open(FILENAME_TO_READ).await.unwrap();
-f.read(&mut buf).await.unwrap();
+    use tokio::io::AsyncReadExt;
+    let mut buf = [0u8; BUF_SIZE];
+    let mut f = tokio::fs::File::open(FILENAME_TO_READ).await.unwrap();
+    f.read(&mut buf).await.unwrap();
 }
 
-#[tokio::test(
-    flavor = "multi_thread",
-    worker_threads = 1
-)]
+#[tokio::test(flavor = "multi_thread", worker_threads = 1)]
 async fn aa1() {
     read();
 }
@@ -38,16 +33,16 @@ async fn aa2() {
     read_async().await;
 }
 
+use futures::FutureExt;
 use std::future::Future;
 use tokio::sync::mpsc;
-use futures::FutureExt;
 
 pub trait OutputSize<A> {
     type Output;
 }
 
 // impl OutputSize for tokio::io::util::read::Read<'_, tokio::fs::File> {
-// 
+//
 // }
 
 macro_rules! impl_output_size {
@@ -97,9 +92,4 @@ fn mpsc_future_size() {
     assert_eq!(std::mem::size_of::<Message>(), 144);
     assert_eq!(output_size(&send::<Message>), 240);
     assert_eq!(output_size(&mpsc::Sender::<Message>::send), 400);
-}
-
-fn open_file(path: &str) {
-    // check path exists
-        
 }

@@ -1,14 +1,13 @@
 // bincode 的最大缺点: 不支持 serde(flatten)
 
-
 #[derive(serde::Serialize, serde::Deserialize, Debug)]
 struct Req {
-    id: u32
+    id: u32,
 }
 
 #[derive(serde::Serialize, serde::Deserialize, Debug)]
 struct Rsp {
-    id: u32
+    id: u32,
 }
 
 #[cfg(test)]
@@ -17,17 +16,19 @@ const PORT: u16 = 4444;
 // #[tokio::test]
 #[cfg(test)]
 async fn server() {
-
     #[derive(serde::Serialize, serde::Deserialize, Debug)]
     struct Req {
-        id: u32
+        id: u32,
     }
 
-    let listener = tokio::net::TcpListener::bind(std::net::SocketAddr::from(([0,0,0,0], PORT))).await.unwrap();
+    let listener = tokio::net::TcpListener::bind(std::net::SocketAddr::from(([0, 0, 0, 0], PORT)))
+        .await
+        .unwrap();
     loop {
         let (stream, _addr) = listener.accept().await.unwrap();
         tokio::spawn(async move {
-            let mut stream = async_bincode::tokio::AsyncBincodeStream::<_, Req, Rsp, _>::from(stream);
+            let mut stream =
+                async_bincode::tokio::AsyncBincodeStream::<_, Req, Rsp, _>::from(stream);
             let (mut read, mut write) = stream.tcp_split();
             // while let Some(req) = futures::StreamExt::next(&mut read).await {
             //     let req = req.unwrap();
@@ -48,8 +49,10 @@ async fn server() {
 
 #[cfg(test)]
 // #[tokio::test]
-async fn client() {
-    let stream = tokio::net::TcpStream::connect(std::net::SocketAddr::from(([0,0,0,0], PORT))).await.unwrap();
+async fn _client() {
+    let stream = tokio::net::TcpStream::connect(std::net::SocketAddr::from(([0, 0, 0, 0], PORT)))
+        .await
+        .unwrap();
     let mut stream = async_bincode::tokio::AsyncBincodeStream::<_, Rsp, Req, _>::from(stream);
     let (mut read, mut write) = stream.tcp_split();
     let mut id = 0;
@@ -68,16 +71,15 @@ async fn client() {
 async fn it_works() {
     use async_bincode::tokio::*;
     use futures::prelude::*;
-    use std::net::IpAddr;
 
     #[derive(serde::Serialize, serde::Deserialize, Debug, Default)]
     struct Req {
-        req_id: u32
+        req_id: u32,
     }
-    
+
     #[derive(serde::Serialize, serde::Deserialize, Debug, Default)]
     struct Rsp {
-        rsp_id: u32
+        rsp_id: u32,
     }
 
     let echo = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
@@ -88,8 +90,8 @@ async fn it_works() {
         dbg!(addr);
         let mut stream = AsyncBincodeStream::<_, Req, Rsp, _>::from(stream).for_async();
         let (mut r, mut w) = stream.tcp_split();
-        while let Some(xx) =  r.next().await {
-            let req = xx.unwrap();
+        while let Some(xx) = r.next().await {
+            let _req = xx.unwrap();
             w.send(Rsp::default()).await.unwrap();
         }
         dbg!("EOF");
@@ -111,12 +113,18 @@ async fn it_works() {
 
 #[test]
 fn run_server() {
-    let rt = tokio::runtime::Builder::new_current_thread().enable_io().build().unwrap();
+    let rt = tokio::runtime::Builder::new_current_thread()
+        .enable_io()
+        .build()
+        .unwrap();
     rt.block_on(server());
 }
 
 #[test]
 fn run_client() {
-    let rt = tokio::runtime::Builder::new_current_thread().enable_io().build().unwrap();
+    let rt = tokio::runtime::Builder::new_current_thread()
+        .enable_io()
+        .build()
+        .unwrap();
     rt.block_on(it_works());
 }
