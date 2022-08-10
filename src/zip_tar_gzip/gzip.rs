@@ -16,6 +16,7 @@ fn decode_gzip_bytes_to_str(bytes: Vec<u8>) -> String {
     String::from_utf8(writer).unwrap()
 }
 
+#[test]
 fn main() {
     let s: &str = "apple";
     let gzip_bytes = encode_str_to_gzip_bytes(s);

@@ -8,7 +8,7 @@ extern crate test;
 
 use bigdecimal::{BigDecimal, FromPrimitive};
 use std::borrow::Borrow;
-use std::lazy::SyncLazy;
+use std::cell::LazyCell;
 use std::str::FromStr;
 
 //////////////////// from和from_u64的性能对比 ////////////////////
@@ -201,8 +201,8 @@ fn two_mul_both_ref(bencher: &mut test::Bencher) {
     });
 }
 // ========================================
-static MAX_RATIO: SyncLazy<BigDecimal> = SyncLazy::new(|| BigDecimal::from_str("1.1").unwrap());
-static MIN_RATIO: SyncLazy<BigDecimal> = SyncLazy::new(|| BigDecimal::from_str("0.9").unwrap());
+static MAX_RATIO: LazyCell<BigDecimal> = LazyCell::new(|| BigDecimal::from_str("1.1").unwrap());
+static MIN_RATIO: LazyCell<BigDecimal> = LazyCell::new(|| BigDecimal::from_str("0.9").unwrap());
 
 #[bench]
 #[ignore]

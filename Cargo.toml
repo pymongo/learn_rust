@@ -19,9 +19,7 @@ actix = "*"
 actix-web = "*"
 futures = { version= "0.3", features = ["thread-pool"] }
 tokio-uring = "0.1.0"
-
 pin-project = "1.0"
-
 isahc = "*"
 serde_repr = "*"
 serde_json = "1.0"
@@ -32,6 +30,9 @@ bigdecimal = { version="*", features = ["serde"] }
 num-bigint = "*"
 itertools = "*"
 flate2 = "*" # gzip
+zip = "*"
+tar = "*"
+tree_magic = "*"
 rand = "*"
 
 eyre = "0.6"
