@@ -12,6 +12,10 @@ fn test_tar() {
     let mut archive = Archive::new(tar);
     for entry in archive.entries().unwrap() {
         let entry = entry.unwrap();
-        println!("{:?}", entry.path().unwrap());
+        if entry.header().entry_type().is_dir() {
+            println!("is_dir: {:?}", entry.path().unwrap());
+        } else {
+            println!("{:?}", entry.path().unwrap());
+        }
     }
 }

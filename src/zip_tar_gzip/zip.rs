@@ -12,7 +12,17 @@ fn zip() {
     .unwrap();
     for i in 0..zip.len() {
         let file = zip.by_index(i).unwrap();
-        println!("{}", file.name());
+        if file.is_dir() {
+            println!("is_dir: {}", file.name());
+        } else {
+            println!("{}", file.name());
+        }
+    }
+    println!("{}\n", "\n".repeat(5));
+    // 以下遍历方式会是乱序，不一定是 文件夹-文件-子文件夹-子文件 这样规整
+    // if file name is gbk encoding in windows would 乱码
+    for each in zip.file_names() {
+        println!("{}", each);
     }
 
     // let mut zip = zip::ZipArchive::new(
