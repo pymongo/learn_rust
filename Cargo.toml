@@ -10,7 +10,7 @@ edition = "2021"
 tracing = "*"
 tracing-subscriber = { version = "*", features = ["env-filter"] }
 reqwest = "*"
-tokio = { version = "1.0", features = ["fs", "macros", "rt-multi-thread"] }
+tokio = { version = "1.20", features = ["fs", "macros", "rt-multi-thread"] }
 serde = { version = "1.0", features = ["derive"] }
 
 [dev-dependencies]
